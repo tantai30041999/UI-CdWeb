@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import Catagory from './explore/Catagory';
 import ItemStoryMain from './explore/ItemStoryMain';
 import ItemStoryV5 from './explore/ItemStoryV5';
-
+import Header from '../header/Header';
 import Load from './Load';
 class ExploreMain extends Component {
     render() {
     
             return (
 
+              <div className="main_content">
+              <Header/>
                 <div className="container m-auto">
                   <h1 className="lg:lg:text-2xl text-lg text-lg font-extrabold leading-none text-gray-900 tracking-tight mt-3"> Explore </h1>
                   
@@ -31,6 +33,7 @@ class ExploreMain extends Component {
                   </div>
                   {/* Load more*/}
                    <Load/>
+                </div>
                 </div>
               );
         

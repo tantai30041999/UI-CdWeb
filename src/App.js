@@ -1,19 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
 
-import Feed from './components/Feed';
-import Message from './components/Message';
-import Explore from './components/Explore';
-import Profile from './components/Profile';
+import './App.css';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
+
+import SlideBar from './components/slidebar/SlideBar';
 function App() {
 
     return (
 
-
-       <Feed/>
-    //  < Explore/>
-    //    <Message/>
-    // <Profile/>
+     <SlideBar/>
 
     );
 }

@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+import TrendingMain from '../main/TrendingMain';
+import FeedMain from '../main/FeedMain';
+import ExploreMain from '../main/ExploreMain';
+import MessageMain from '../main/MessageMain';
+import ProfileMain from '../main/ProfileMain';
+import LoginForm from '../main/LoginForm';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 class SlideBar extends Component {
     render() {
         return (
-            <div className="sidebar">
+
+          <Router>
+           <div id="wrapper">
+
+<div className="sidebar">
             <div className="sidebar_header border-b border-gray-200 from-gray-100 to-gray-50 bg-gradient-to-t  uk-visible@s"> 
               <a href="#">
                 <img src="assets/images/logo.png" />
@@ -47,41 +60,41 @@ class SlideBar extends Component {
               <hr className="-mx-4 -mt-1 uk-visible@s" />
               <ul>
                 <li>
-                  <a href="feed.html"> 
+                  <Link to="/feed"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg> 
-                    <span> Feed </span> </a> 
+                    <span> Feed </span> </Link> 
                 </li>
                 <li>
-                  <a href="explore.html"> 
+                  <Link to="/explore"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <span> Explore </span> </a> 
+                    <span> Explore </span> </Link> 
                 </li>
                 <li>
-                  <a href="chat.html"> 
+                  <Link to="/message"> 
                     <i className="uil-location-arrow" />
-                    <span> Messages </span> <span className="nav-tag"> 3</span></a> 
+                    <span> Messages </span> <span className="nav-tag"> 3</span></Link> 
                 </li>
                 <li className="active">
-                  <a href="trending.html"> 
+                  <Link to="/trending"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
                     </svg>
-                    <span> Trending </span> </a> 
+                    <span> Trending </span> </Link> 
                 </li>
              
                 <li>
-                  <a href="setting.html"> 
+                  <Link to="/setting"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <span> Settings </span> 
-                  </a> 
+                  </Link> 
                   <ul>
                     <li><a href="setting.html">General </a></li>
                     <li><a href="setting.html"> Account setting </a></li>
@@ -89,25 +102,40 @@ class SlideBar extends Component {
                   </ul>
                 </li>
                 <li>
-                  <a href="profile.html"> 
+                  <Link to="/profile"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    <span> My Profile </span> </a> 
+                    <span> My Profile </span> </Link> 
                 </li>
                 <li>
                   <hr className="my-2" />
                 </li>
                 <li>
-                  <a href="form-login.html"> 
+                  <Link to="/logout"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                    <span> Logout </span> </a> 
+                    <span> Logout </span> </Link> 
                 </li>
               </ul>
             </div>
           </div>
+          
+          <Route path="/"  exact component={FeedMain}/>
+          <Route path="/feed"  exact component={FeedMain}/>
+          <Route path="/message" component={MessageMain}/>
+          <Route path="/trending" component={TrendingMain}/>
+          <Route path="/profile" component={ProfileMain}/>
+          <Route path="/explore" component={ExploreMain}/>
+          <Route path="/logout" component={LoginForm}/>
+          </div>
+      
+ 
+
+
+          </Router>
+           
         );
     }
 }

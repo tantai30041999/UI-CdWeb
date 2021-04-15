@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import LeftMessage from './message/LeftMessage';
 import RightMessage from './message/RightMessage';
-
+import Header from '../header/Header';
 class MessageMain extends Component {
     render() {
     
             return (
+              <div className="main_content">
+              <Header/>
 
                 <div className="container m-auto pt-5">
                   <h1 className="font-semibold lg:mb-6 mb-3 text-2xl"> Messages</h1>
@@ -17,6 +19,7 @@ class MessageMain extends Component {
                      {/*Right message*/}
                      <RightMessage/>
                   </div>
+                </div>
                 </div>
               );
         
