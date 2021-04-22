@@ -7,8 +7,8 @@ import Header from '../header/Header';
 class TrendingMain extends Component {
   render() {
     return (
-      <div className="main_content">
-      <Header/>
+     
+  
         <div className="container m-auto">
           <div className="flex justify-between items-baseline lg:mr-8  uk-visible@s">
             <h1 className="font-extrabold leading-none mb-6 lg:text-2xl text-lg text-gray-900 tracking-tight"> Stories </h1>
@@ -27,9 +27,8 @@ class TrendingMain extends Component {
           {/* Explore*/}
           <ListExplore />
         </div>
-        <div>
-        </div>
-      </div>
+      
+     
     );
   }
 }

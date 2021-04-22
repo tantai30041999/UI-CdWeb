@@ -6,8 +6,7 @@ import Header from '../header/Header';
 class ProfileMain extends Component {
     render() {
         return (
-          <div className="main_content">
-          <Header/>
+        
 
                 <div className="container pro-container m-auto">
                   {/* profile-cover*/}
@@ -27,7 +26,7 @@ class ProfileMain extends Component {
            
                 
                 </div>
-                </div>
+             
               );
         
     }

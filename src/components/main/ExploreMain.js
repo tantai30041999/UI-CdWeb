@@ -9,8 +9,7 @@ class ExploreMain extends Component {
     
             return (
 
-              <div className="main_content">
-              <Header/>
+          
                 <div className="container m-auto">
                   <h1 className="lg:lg:text-2xl text-lg text-lg font-extrabold leading-none text-gray-900 tracking-tight mt-3"> Explore </h1>
                   
@@ -34,7 +33,7 @@ class ExploreMain extends Component {
                   {/* Load more*/}
                    <Load/>
                 </div>
-                </div>
+       
               );
         
     }

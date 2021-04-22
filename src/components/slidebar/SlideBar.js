@@ -8,6 +8,7 @@ import MessageMain from '../main/MessageMain';
 import ProfileMain from '../main/ProfileMain';
 import LoginForm from '../main/LoginForm';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Header from '../header/Header';
 
 class SlideBar extends Component {
     render() {
@@ -121,7 +122,8 @@ class SlideBar extends Component {
               </ul>
             </div>
           </div>
-          
+          <div className="main_content">
+            <Header/>
           <Route path="/"  exact component={FeedMain}/>
           <Route path="/feed"  exact component={FeedMain}/>
           <Route path="/message" component={MessageMain}/>
@@ -131,7 +133,7 @@ class SlideBar extends Component {
           <Route path="/logout" component={LoginForm}/>
           </div>
       
- 
+        </div>
 
 
           </Router>
