@@ -6,7 +6,7 @@ import FeedMain from '../main/FeedMain';
 import ExploreMain from '../main/ExploreMain';
 import MessageMain from '../main/MessageMain';
 import ProfileMain from '../main/ProfileMain';
-import LoginForm from '../main/LoginForm';
+import LoginForm from '../login/LoginForm';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Header from '../header/Header';
 
@@ -130,12 +130,12 @@ class SlideBar extends Component {
           <Route path="/trending" component={TrendingMain}/>
           <Route path="/profile" component={ProfileMain}/>
           <Route path="/explore" component={ExploreMain}/>
-          <Route path="/logout" component={LoginForm}/>
-          </div>
+          
       
         </div>
 
-
+        <Route path="/logout"  component={LoginForm}/>
+          </div>
           </Router>
            
         );
