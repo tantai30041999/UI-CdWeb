@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 import $ from 'jquery';
-import sha256 from 'crypto-js/sha256';
+import { sha256 } from 'js-sha256';
+import { Redirect } from 'react-router';
+
 
 
 
@@ -9,17 +11,18 @@ var sqlDatetime = new Date(new Date().getTime() - new Date().getTimezoneOffset()
 const initialState = {
   fname: "",
   lname: "",
-  createDate : sqlDatetime,
+  createDate: sqlDatetime,
   email: "",
   password: "",
   cfpassword: "",
-  checkedTerms :"",
+  checkedTerms: "",
   err_fname: "",
   err_lname: "",
   err_email: "",
   err_password: "",
   err_cfpassword: "",
   err_checkedTerms: "",
+  success :false,
 
 }
 class RegisterForm extends Component {
@@ -29,12 +32,10 @@ class RegisterForm extends Component {
     this.state = initialState;
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  
+
 
   }
   handleChange(event) {
- 
- 
     var value = event.target.value;
     var nameTag = [event.target.name];
     var errtag = "";
@@ -42,11 +43,11 @@ class RegisterForm extends Component {
     // handle error
     if (nameTag == "password") {
       if (value.length >= 8) {
-          if(this.checkPassword(value)) {
-            $("#" + errtag + "").text('');
-          }else {
-            $("#" + errtag + "").text('Passwords must contain at least 8 characters, including uppercase, lowercase letters and numbers');
-          }
+        if (this.checkPassword(value)) {
+          $("#" + errtag + "").text('');
+        } else {
+          $("#" + errtag + "").text('Passwords must contain at least 8 characters, including uppercase, lowercase letters and numbers');
+        }
         if ($('input[name="cfpassword"]').val() != value) {
           $('#err_cfpassword').text('Password and confirmation password do not match');
         } else {
@@ -84,7 +85,7 @@ class RegisterForm extends Component {
     let err_email = "";
     let err_password = "";
     let err_cfpassword = "";
-    let err_checkedTerms= "";
+    let err_checkedTerms = "";
     let countErr = 0;
     if (this.checkEmpty(this.state.fname)) {
       err_fname = "Not empty";
@@ -127,15 +128,15 @@ class RegisterForm extends Component {
       countErr++;
       errTmp++;
     } else {
-      
-       if(this.checkPassword(this.state.password)) {
+
+      if (this.checkPassword(this.state.password)) {
         err_password = "";
         this.setState({ err_password });
-       }else {
+      } else {
         err_password = "Passwords must contain at least 8 characters, including uppercase, lowercase letters and numbers";
         this.setState({ err_password });
-       }
-     
+      }
+
     }
 
     if (this.checkEmpty(this.state.cfpassword) || this.state.cfpassword.length < 8) {
@@ -144,14 +145,14 @@ class RegisterForm extends Component {
       countErr++;
       errTmp++;
 
-    }else {
-      if(this.checkPassword(this.state.cfpassword)) {
+    } else {
+      if (this.checkPassword(this.state.cfpassword)) {
         err_cfpassword = "";
         this.setState({ err_cfpassword });
-       }else {
+      } else {
         err_cfpassword = "Passwords must contain at least 8 characters, including uppercase, lowercase letters and numbers";
         this.setState({ err_cfpassword });
-       }
+      }
     }
     if (errTmp == 0) {
       if (this.state.password != this.state.cfpassword) {
@@ -164,23 +165,24 @@ class RegisterForm extends Component {
       }
     }
 
-    if( $('#chekcbox1').is(':checked') == false)  {
+    if ($('#chekcbox1').is(':checked') == false) {
       countErr++;
-      err_checkedTerms ="Please check Terms";
-      this.setState ({
+      err_checkedTerms = "Please check Terms";
+      this.setState({
         err_checkedTerms
       })
 
     }
-    
-   
-    console.log(countErr);
-    if (countErr == 0) {
-      return true;
+
+
+ 
+    if (countErr > 0) {
+      return false;
     }
-    return false;
+    return true;
 
   }
+
   checkPassword(input) {
     var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     if (input.match(passw)) {
@@ -188,60 +190,91 @@ class RegisterForm extends Component {
     }
     return false;
   }
+
   validateEmail(email) {
     var re = /^(([^<>()[]\\.,;:\s@\"]+(\.[^<>()[]\\.,;:\s@\"]+)*)|(\".+\"))@(([[0-9]{1,3}\‌​.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
+
   checkEmpty(inputValue) {
     return (inputValue == "") ? true : false;
   }
-  addNewUser(data) {
-      fetch('',{
-        method: 'POST',
-        header : new Headers ({
-          'Content-Type': 'application/json',
-          'Authorization':'Basic '+btoa('admin:taibong123'),
-      }),
-      body :JSON.stringify({
-        data
-      })
 
-      }).then(response => {
-        response.json().then(response => {
-          console.log(response)
-        })
-      })
+  checkExistEmail(email) {
+    const url = ""
+    fetch(url, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json;',
+        'Authorization': 'Basic ' + btoa('admin:taibong123'),
+      }),
+    }).then(response => response.json())
+      .then(json => console.log(json));
+  }
+
+  addNewUser(data) {
+    const url = "http://207.148.74.251:8080/api/user/create";
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Basic ' + btoa('admin:taibong123'),
+      }),
+      body: data
+
+    }).then(response => response.json())
+      .then(json => console.log(json));
   }
   handleSubmitForm(event) {
- 
     event.preventDefault();
-    const isValid = this.validationForm();
-    console.log(this.state);
-    if (isValid) {
-      this.setState(initialState);
-    }else {
-      var data ={
-          'id': '2',
-          'activated':'1',
-           'avatar' :'',
-           'bio':'',
-           'created_at:':this.state.createDate,
-            'deleted_at': null,
-            'email': this.state.email,
-            'gender':'1',
-            'password': this.state.password,
-            'phone': null,
-            'private_user':'1',
-            'username':''  
-      }
-      this.addNewUser(data);
+    const isValidForm = this.validationForm();
+    var date = sqlDatetime.substring(0, 10);
 
-     
+    if (isValidForm) {
+
+      var encodePass = sha256(this.state.password);
+      console.log(encodePass);
+      var data = {
+        "id": null,
+        "username": null,
+        "displayName": this.state.lname + " " + this.state.fname,
+        "bio": null,
+        "email": this.state.email,
+        "phone": null,
+        "gender": 1,
+        "createdAt": date,
+        "deletedAt": null,
+        "activated": 1,
+        "avatar": null,
+        "privateUser": 0,
+        "password": encodePass
+      }
+
+
+
+      var tmp = JSON.stringify(data);
+      if (tmp.length > 0) {
+        this.addNewUser(tmp);
+        this.setState( {
+          success : true,
+        })
+      }else {
+
+        this.setState(initialState);
+      }
+
 
     }
 
+
   }
   render() {
+    var signUp = this.state.success;
+    console.log(signUp);
+    if(signUp == true) {
+      return <Redirect  to="/login"/>
+    }
     return (
 
       <div>
@@ -266,11 +299,11 @@ class RegisterForm extends Component {
             <span id="err_cfpassword" style={{ color: 'red' }} >{this.state.err_cfpassword}</span>
             <div className="flex justify-start my-4 space-x-1">
               <div className="checkbox">
-                <input type="checkbox" id="chekcbox1" name="checkedTerms"  onChange={this.handleChange} />
+                <input type="checkbox" id="chekcbox1" name="checkedTerms" onChange={this.handleChange} />
                 <label htmlFor="chekcbox1"><span className="checkbox-icon" /> I Agree</label>
               </div>
-              <a href="#"> Terms and Conditions</a> 
-              <span style={{color:'red'}}>&nbsp; {this.state.err_checkedTerms}</span>
+              <a href="#"> Terms and Conditions</a>
+              <span style={{ color: 'red' }}>&nbsp; {this.state.err_checkedTerms}</span>
             </div>
             <button type="submit" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Register</button>
             <div className="text-center mt-5 space-x-2">

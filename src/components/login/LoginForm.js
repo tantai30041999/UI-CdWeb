@@ -1,6 +1,65 @@
 import React, { Component } from 'react';
 
 class LoginForm extends Component {
+  constructor(props) {
+    super(props)
+    let login = false
+    this.state = {
+      email :"",
+      password :"",
+      err_email :"",
+      err_password :"",
+      login
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmitForm = this.handleSubmitForm.bind(this);
+
+  }
+
+  validationForm() {
+    let err_email = "";
+    let err_password ="";
+    var countErr = 0;
+    if(this.state.email =="") {
+      err_email ="Please input email"
+      countErr++;
+    }else {
+      err_email =""
+    }
+    this.setState({
+      err_email
+    })
+
+    if(this.state.password =="") {
+      err_password ="Please input password"
+      countErr++;
+    }else {
+      err_password =""
+    }
+    this.setState({
+      err_password
+    })
+    if(countErr > 0) {
+      return false;
+    }
+    return true;
+  }
+  handleChange(event) {
+     var value = event.target.value;
+     var nameTag = [event.target.name];
+  }
+
+  handleSubmitForm(event) {
+    event.preventDefault();
+    const isValid = this.validationForm;
+    if(isValid) {
+
+    }else {
+
+    }
+  
+
+  }
     render() {
         return (
            
@@ -8,9 +67,11 @@ class LoginForm extends Component {
       <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
         <h1 className="lg:text-3xl text-xl font-semibold  mb-6"> Log in</h1>
         <p className="mb-2 text-black text-lg"> Email or Username</p>
-        <form action>
-          <input type="text" placeholder="example@mydomain.com" className="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style={{border: '1px solid #d3d5d8 !important'}} />
-          <input type="text" placeholder="***********" className="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style={{border: '1px solid #d3d5d8 !important'}} />
+        <form onSubmit={this.handleSubmitForm}>
+          <input type="text" placeholder="Email"  name="email" onChange={this.handleChange}  value={this.state.email} className="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style={{border: '1px solid #d3d5d8 !important'}} />
+          <span id="errEmail" style={{ color: 'red' }} >{this.state.err_email}</span>
+          <input type="text" placeholder="Password" name="password" onChange={this.handleChange}  value={this.state.password} className="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style={{border: '1px solid #d3d5d8 !important'}} />
+          <span id="errPass" style={{ color: 'red' }} >{this.state.err_password}</span>
           <div className="flex justify-between my-4">
             <div className="checkbox">
               <input type="checkbox" id="chekcbox1" defaultChecked />
