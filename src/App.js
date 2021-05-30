@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import LoginForm from './components/login/LoginForm';
 import RegisterForm from './components/login/RegisterForm';
 import HeaderStart from './components/header/start/HeaderStart';
+import SlideBar from './components/slidebar/SlideBar';
 
 function App() {
 
@@ -27,7 +28,8 @@ function App() {
                </Route>
             </Switch>
             </BrowserRouter>
-       </div>
+        </div>
+       //<SlideBar/>
 
     );
 }

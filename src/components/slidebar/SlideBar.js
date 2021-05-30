@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 
 import TrendingMain from '../main/TrendingMain';
 import FeedMain from '../main/FeedMain';
@@ -124,18 +124,21 @@ class SlideBar extends Component {
           </div>
           <div className="main_content">
             <Header/>
+
+          
+         
           <Route path="/"  exact component={FeedMain}/>
           <Route path="/feed"  exact component={FeedMain}/>
           <Route path="/message" component={MessageMain}/>
           <Route path="/trending" component={TrendingMain}/>
           <Route path="/profile" component={ProfileMain}/>
           <Route path="/explore" component={ExploreMain}/>
-          
+          <Route path="/logout"> <LoginForm/> </Route>
       
         </div>
 
-        <Route path="/logout"  component={LoginForm}/>
-          </div>
+      
+         </div>
           </Router>
            
         );

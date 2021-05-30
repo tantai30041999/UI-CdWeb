@@ -21,8 +21,10 @@ const initialState = {
   err_email: "",
   err_password: "",
   err_cfpassword: "",
+  err:"",
   err_checkedTerms: "",
-  success :false,
+  err_sameEmail: false,
+  success: false,
 
 }
 class RegisterForm extends Component {
@@ -33,14 +35,36 @@ class RegisterForm extends Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
-
   }
-  handleChange(event) {
+
+
+  shouldComponentUpdate() {
+    return true;
+  }
+  async handleChange(event) {
+
+
     var value = event.target.value;
     var nameTag = [event.target.name];
+
+
+    await this.setState({
+      [event.target.name]: event.target.value
+    })
+
+
     var errtag = "";
     errtag = "err_" + nameTag;
+    var err_email = ""
     // handle error
+
+    if (nameTag == "email") {
+
+      await this.checkExistEmail(value)
+      console.log(this.state.err_sameEmail);
+      
+    }
+
     if (nameTag == "password") {
       if (value.length >= 8) {
         if (this.checkPassword(value)) {
@@ -57,7 +81,7 @@ class RegisterForm extends Component {
     } else {
       if (nameTag == "cfpassword") {
         if (value.length >= 8) {
-          console.log($('input[name="password"]').val())
+
           if ($('input[name="password"]').val() != value) {
             $('#err_cfpassword').text('Password and confirmation password do not match');
           } else {
@@ -67,15 +91,12 @@ class RegisterForm extends Component {
           }
         }
       } else {
-        if (!this.checkEmpty(value)) {
+        if (!this.isEmpty(value)) {
           $("#" + errtag + "").text('');
         }
       }
     }
 
-    this.setState({
-      [event.target.name]: event.target.value
-    })
   }
 
   validationForm = () => {
@@ -87,7 +108,7 @@ class RegisterForm extends Component {
     let err_cfpassword = "";
     let err_checkedTerms = "";
     let countErr = 0;
-    if (this.checkEmpty(this.state.fname)) {
+    if (this.isEmpty(this.state.fname)) {
       err_fname = "Not empty";
       this.setState({ err_fname })
       countErr++;
@@ -96,7 +117,7 @@ class RegisterForm extends Component {
       this.setState({ err_fname })
     }
 
-    if (this.checkEmpty(this.state.lname)) {
+    if (this.isEmpty(this.state.lname)) {
       err_lname = "Not empty";
       this.setState({ err_lname })
       countErr++;
@@ -106,23 +127,32 @@ class RegisterForm extends Component {
     }
     this.setState({ err_lname })
 
-    if (this.checkEmpty(this.state.email)) {
+    if (this.isEmpty(this.state.email)) {
 
       err_email = "Incorrect email format"
       this.setState({ err_email });
       countErr++;
     } else {
-      if (this.validateEmail(this.state.email)) {
+      console.log(this.state.email)
+      if (!this.validateEmail(this.state.email)) {
         err_email = "Incorrect email format"
         this.setState({ err_email });
         countErr++;
       } else {
-        err_email = ""
-        this.setState({ err_email });
+        if (this.err_sameEmail) {
+          err_email = "Email already exists";
+          countErr++;
+          this.setState({ err_email });
+        }else {
+          err_email = ""
+          this.setState({ err_email });
+        }
+    
       }
     }
+    
     var errTmp = 0;
-    if (this.checkEmpty(this.state.password) || this.state.password.length < 8) {
+    if (this.isEmpty(this.state.password) || this.state.password.length < 8) {
       err_password = "Passwords must contain at least 8 characters, including uppercase, lowercase letters and numbers"
       this.setState({ err_password });
       countErr++;
@@ -139,7 +169,7 @@ class RegisterForm extends Component {
 
     }
 
-    if (this.checkEmpty(this.state.cfpassword) || this.state.cfpassword.length < 8) {
+    if (this.isEmpty(this.state.cfpassword) || this.state.cfpassword.length < 8) {
       err_cfpassword = "Passwords must contain at least 8 characters, including uppercase, lowercase letters and numbers"
       this.setState({ err_cfpassword });
       countErr++;
@@ -173,9 +203,6 @@ class RegisterForm extends Component {
       })
 
     }
-
-
- 
     if (countErr > 0) {
       return false;
     }
@@ -191,26 +218,49 @@ class RegisterForm extends Component {
     return false;
   }
 
-  validateEmail(email) {
-    var re = /^(([^<>()[]\\.,;:\s@\"]+(\.[^<>()[]\\.,;:\s@\"]+)*)|(\".+\"))@(([[0-9]{1,3}\‌​.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+ async validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
-  checkEmpty(inputValue) {
+  isEmpty(inputValue) {
     return (inputValue == "") ? true : false;
   }
 
-  checkExistEmail(email) {
-    const url = ""
-    fetch(url, {
+  showError(existed) {
+    if(existed) {
+      return "Email already existed";
+    }else {
+      return "";
+    }
+  }
+  async checkExistEmail(email) {
+
+    const url = "http://207.148.74.251:8080/nonauth/api/emailexisted?email=" + email;
+    let data = await fetch(url, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json;',
         'Authorization': 'Basic ' + btoa('admin:taibong123'),
       }),
-    }).then(response => response.json())
-      .then(json => console.log(json));
+    });
+
+    let json = await data.json();
+    var err_sameEmail = json.existed;
+    var err_email ="";
+    await this.setState({ err_sameEmail })
+    if(this.state.err_sameEmail == true) {
+     err_email = "Email already existed";
+       await this.setState({err_email})
+      
+    }else {
+      err_email = "";
+      await this.setState({err_email})
+    }
+    console.log(this.state.err_email)
+
   }
+
 
   addNewUser(data) {
     const url = "http://207.148.74.251:8080/api/user/create";
@@ -227,22 +277,25 @@ class RegisterForm extends Component {
       .then(json => console.log(json));
   }
   handleSubmitForm(event) {
+
     event.preventDefault();
     const isValidForm = this.validationForm();
     var date = sqlDatetime.substring(0, 10);
 
+
+
     if (isValidForm) {
 
       var encodePass = sha256(this.state.password);
-      console.log(encodePass);
+  
       var data = {
         "id": null,
-        "username": null,
+        "username": this.state.email,
         "displayName": this.state.lname + " " + this.state.fname,
         "bio": null,
         "email": this.state.email,
         "phone": null,
-        "gender": 1,
+        "gender": null,
         "createdAt": date,
         "deletedAt": null,
         "activated": 1,
@@ -252,28 +305,25 @@ class RegisterForm extends Component {
       }
 
 
-
       var tmp = JSON.stringify(data);
+      console.log(tmp);
       if (tmp.length > 0) {
         this.addNewUser(tmp);
-        this.setState( {
-          success : true,
-        })
-      }else {
-
+        // this.setState({
+        //   success: true,
+        // })
+      } else {
         this.setState(initialState);
       }
-
-
     }
-
-
   }
   render() {
     var signUp = this.state.success;
-    console.log(signUp);
-    if(signUp == true) {
-      return <Redirect  to="/login"/>
+    var existed = this.state.err_sameEmail;
+   
+
+    if (signUp == true) {
+      return <Redirect to="/login" />
     }
     return (
 
@@ -290,9 +340,12 @@ class RegisterForm extends Component {
               <span id="err_lname" style={{ color: 'red', }} >{this.state.err_lname}</span>
             </div>
 
-            <input type="email" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange} className="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" style={{ border: '1px solid #d3d5d8 !important' }} />
-
+            <input type="email" id="email" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange} className="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" style={{ border: '1px solid #d3d5d8 !important' }} />
+                  
+     
             <span id="err_email" style={{ color: 'red' }} >{this.state.err_email}</span>
+            <p style={{color:'red'}}>{this.showError(existed)}</p>
+          
             <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} className="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" style={{ border: '1px solid #d3d5d8 !important' }} />
             <span id="err_password" style={{ color: 'red' }} >{this.state.err_password}</span>
             <input type="password" placeholder="Confirm Password" name="cfpassword" value={this.state.cfpassword} onChange={this.handleChange} className="bg-gray-200 mb-2 shadow-none  dark:bg-gray-800" style={{ border: '1px solid #d3d5d8 !important' }} />

@@ -44,16 +44,31 @@ class LoginForm extends Component {
     }
     return true;
   }
-  handleChange(event) {
-     var value = event.target.value;
-     var nameTag = [event.target.name];
+  login = () =>{
+      const url ="http://207.148.74.251:8080/api/user/login";
+      fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Basic ' + btoa('admin:taibong123'),
+        }),
+       
+    
+      
+    }).then(res=> console.log(res))
+  }
+  async handleChange(event) {
+    await this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   handleSubmitForm(event) {
     event.preventDefault();
     const isValid = this.validationForm;
     if(isValid) {
-
+      this.login();
     }else {
 
     }
