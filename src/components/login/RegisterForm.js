@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import { sha256 } from 'js-sha256';
 import { Redirect } from 'react-router';
-
+import HeaderStart from '../header/start/HeaderStart';
 
 
 
@@ -38,9 +38,7 @@ class RegisterForm extends Component {
   }
 
 
-  shouldComponentUpdate() {
-    return true;
-  }
+
   async handleChange(event) {
 
 
@@ -326,8 +324,9 @@ class RegisterForm extends Component {
       return <Redirect to="/login" />
     }
     return (
-
-      <div>
+    
+      <div id="wrapper">
+      <HeaderStart/>
         <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
           <h1 className="lg:text-3xl text-xl font-semibold mb-6"> Sign in</h1>
           <p className="mb-2 text-black text-lg"> Register to manage your account </p>
