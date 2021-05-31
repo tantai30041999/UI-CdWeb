@@ -22,7 +22,7 @@ class Upload extends Component {
                     </div>
                     <p className="my-3 leading-6"> Do you have a video wants to share us <br /> please upload her ..
                     </p>
-                    <div uk-form-custom>
+                    <div className="uk-form-custom" uk-form-custom="">
                       <input type="file" />
                       <a href="#" className="button soft-warning small"> Choose file</a>
                     </div>
