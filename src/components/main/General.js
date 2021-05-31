@@ -5,10 +5,12 @@ import SettingOption from './setting/SettingOption';
 import Title from './setting/Title';
 import ContentPrivacy from './setting/ContentPrivacy';
 import Header from '../header/Header';
+import SlideBar from '../slidebar/SlideBar';
 class General extends Component {
   render() {
     return (
-
+      <div id="wrapper">
+         <SlideBar/>
       <div className="main_content">
         <Header />
         <div className="container m-auto">
@@ -26,7 +28,7 @@ class General extends Component {
               <Description description="Lorem ipsum dolor sit amet nibh consectetuer adipiscing elit" />
             </div>
             <ContentPrivacy />
-
+            </div>
           </div>
         </div>
       </div>
