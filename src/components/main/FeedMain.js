@@ -4,6 +4,39 @@ import RightFeed from './feed/RightFeed';
 import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
 class FeedMain extends Component {
+      constructor(props) {
+        super(props);
+       this.state = {
+         dataPost :"",
+       }
+      }
+
+loadData () {
+
+  const url ="";
+  fetch(url, {
+    method: 'GET',
+    headers: new Headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Basic ' + btoa('abc@gmail.com:962327875f14613600549dc1333341cd8c1fa3e0d0a2b46882c54df01a038262'),
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json)
+
+        //  if(a) {
+        //     var dataPost = json;
+        //     this.setState({
+        //       dataPost
+        //     })
+        //  }
+    })
+
+}
+
+     
     render() {
         return (
             <div>

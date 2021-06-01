@@ -4,6 +4,11 @@ class BodyPost extends Component {
     render() {
         return (
             <div uk-lightbox>
+              <div class="p-3 border-b dark:border-gray-700">
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim laoreet dolore magna aliquam erat volutpat
+
+</div>
             <div className="grid grid-cols-2 gap-2 p-2">
               <a href="assets/images/post/img9.jpg" className="col-span-2">
                 <img src="assets/images/post/img9.jpg" alt="" className="rounded-md w-full lg:h-76 object-cover" />

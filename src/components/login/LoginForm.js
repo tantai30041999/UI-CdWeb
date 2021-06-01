@@ -2,6 +2,7 @@ import { sha256 } from 'js-sha256';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import HeaderStart from '../header/start/HeaderStart';
+import {Cookies} from 'react-cookie';
 const initialState = {
 
   email: "",
@@ -24,10 +25,24 @@ class LoginForm extends Component {
   }
 
 
+getInfUser= ()=> {
+
+   const url ="http://207.148.74.251:8080/api/user/current";
+   fetch(url, {
+    method: 'GET',
+    headers: new Headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
+    })
+   }).then(response => response.json())
+             .then(json => console.log(json))
+}
 
   login = () => {
     const url = "http://207.148.74.251:8080/api/user/login";
 
+     const cookie = new Cookies();
+     
     var header = new Headers();
     var encode = sha256(this.state.password);
     fetch(url, {
@@ -37,16 +52,14 @@ class LoginForm extends Component {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Basic ' + btoa(this.state.email + ':' + encode),
       }),
-
-
-
-
     }).then(response =>   {
       
        console.log(response.status)
       if(response.ok) {
             var login = true;
             this.setState({login}) 
+          //  await  this.getInfUser();
+            
       }else {
         if(response.status == 401) {
              var login = false;
@@ -113,9 +126,9 @@ class LoginForm extends Component {
   render() {
 
     var login = this.state.login;
-    if(login == true) {
-      return <Redirect to="/feed"></Redirect>
-    }
+    // if(login == true) {
+    //   return <Redirect to="/feed"></Redirect>
+    // }
     return (
 
       <div id="wrapper">
