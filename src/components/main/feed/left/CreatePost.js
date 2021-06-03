@@ -13,11 +13,11 @@ class CreatePost extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            file: ""
+            files: []
         }
         this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
-        // this.uploadFiles = this.uploadFiles.bind(this)
-        // this.handleFiles = this.handleFiles.bind(this);
+        this.uploadFiles = this.uploadFiles.bind(this)
+  
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.removeAllImage = this.removeAllImage.bind(this);
@@ -30,23 +30,40 @@ class CreatePost extends Component {
     }
     uploadMultipleFiles(e) {
         this.fileObj.push(e.target.files)
+        var files = [];
         for (let i = 0; i < this.fileObj[0].length; i++) {
+
+            var converter = this.convertBase64(this.fileObj[0][i]);
+            files.push(converter);
+        
             this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
 
             
         }
-        this.setState({ file: this.fileArray })
+        this.setState({ files})
 
      
        
     }
-    async uploadFiles(e) {
+     uploadFiles(e) {
         e.preventDefault()
-     
- 
-     
-     
-     
+        console.log(this.state.files);
+        // var file = document.getElementById('addFile').files;
+       
+        // console.log(this.state.file[0]);
+        // var f = new File(this.state.file[0]);
+        // this.convertBase64();
+    }
+
+    convertBase64 = (file)=> {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            console.log(reader.result);
+        }
+        reader.onerror = (error) => {
+           console.log(error);
+        } 
    
     }
 
@@ -64,7 +81,7 @@ class CreatePost extends Component {
     render() {
 
         var isListImage = false;
-        if(this.state.file.length >0) {
+        if(this.state.files.length >0) {
             isListImage = true;
         }
         
@@ -137,7 +154,7 @@ class CreatePost extends Component {
 
                                         <div className="flex space-x-4 lg:font-bold">
                                           
-                                            <input type="file"  onChange={this.uploadMultipleFiles} classname="bg-white py-2 px-4 rounded shadow" multiple />
+                                            <input type="file" id="addFile"  onChange={this.uploadMultipleFiles} classname="bg-white py-2 px-4 rounded shadow" multiple />
 
                                            
                                         </div>
@@ -158,7 +175,7 @@ class CreatePost extends Component {
                             </div>
                             </div></div>
                             <div style={{ textAlign: 'center' }}>
-                                <button  style={{ width: '95%', backgroundColor: '#1877F2', margin: '0 auto', color: 'white', borderRadius: '5px', height: '40px' }}><b>Post</b></button>
+                                <button onClick={this.uploadFiles}  style={{ width: '95%', backgroundColor: '#1877F2', margin: '0 auto', color: 'white', borderRadius: '5px', height: '40px' }}><b>Post</b></button>
                             </div>
                             <br></br>
                         </div>
