@@ -1,14 +1,57 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import FontAwesome from 'react-fontawesome';
+import $, { error } from 'jquery';
+import { enc } from 'crypto-js';
+import ReactFileReader from 'react-file-reader';
+
+
+      
+ 
+
 class CreatePost extends Component {
+    fileObj = [];
+    fileArray = [];
     constructor(props) {
         super(props)
-
+        this.state = {
+            file: ""
+        }
+        this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
+        // this.uploadFiles = this.uploadFiles.bind(this)
+        // this.handleFiles = this.handleFiles.bind(this);
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
-        this.previewImage = this.previewImage.bind(this);
+        this.removeAllImage = this.removeAllImage.bind(this);
+   
     }
+
+    removeAllImage = ()=> {
+        var file ="";
+        this.setState({file})
+    }
+    uploadMultipleFiles(e) {
+        this.fileObj.push(e.target.files)
+        for (let i = 0; i < this.fileObj[0].length; i++) {
+            this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+
+            
+        }
+        this.setState({ file: this.fileArray })
+
+     
+       
+    }
+    async uploadFiles(e) {
+        e.preventDefault()
+     
+ 
+     
+     
+     
+   
+    }
+
+
+
 
     showModal() {
         $('#story-modal').show();
@@ -16,25 +59,15 @@ class CreatePost extends Component {
     hideModal() {
         $('#story-modal').hide();
     }
-    previewImage(input, placeToInsertImagePreview) {
 
-        placeToInsertImagePreview = $('#previewImage');
-            if(input.files) {
-                var filesAmount = input.files.length;
 
-                for (var i = 0; i < filesAmount; i++) {
-                    var reader = new FileReader();
-    
-                    reader.onload = function(event) {
-                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
-                    }
-    
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-            }
-    
     render() {
+
+        var isListImage = false;
+        if(this.state.file.length >0) {
+            isListImage = true;
+        }
+        
         return (
             <div>
                 <div className="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
@@ -66,11 +99,11 @@ class CreatePost extends Component {
                     </div>
                 </div>
 
-                <div id="story-modal" className="uk-modal-container uk-modal uk-open" uk-modal style={{ display: 'none' }}>
+                <div id="story-modal" className="uk-modal-container uk-modal uk-open" uk-modal style={{ display: 'none', }} >
                     <div className="uk-modal-dialog story-modal">
                         <button onClick={this.hideModal} className="uk-modal-close-default lg:-mt-9 lg:-mr-9 -mt-5 -mr-5 shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white uk-icon uk-close" type="button" uk-close><svg width={14} height={14} viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" data-svg="close-icon"><line fill="none" stroke="#000" strokeWidth="1.1" x1={1} y1={1} x2={13} y2={13} /><line fill="none" stroke="#000" strokeWidth="1.1" x1={13} y1={1} x2={1} y2={13} /></svg></button>
 
-                        <div className="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100">
+                        <div className="flex-1 bg-white dark:bg-gray-900 dark:text-gray-100" >
                             {/* post header*/}
                             <div >
                                 <br></br>
@@ -103,38 +136,35 @@ class CreatePost extends Component {
                                     <div className="flex justify-around">
 
                                         <div className="flex space-x-4 lg:font-bold">
+                                          
+                                            <input type="file"  onChange={this.uploadMultipleFiles} classname="bg-white py-2 px-4 rounded shadow" multiple />
 
-                                            <input type="file" classname="bg-white py-2 px-4 rounded shadow"  multiple/>
+                                           
                                         </div>
 
+                                        {isListImage ?  <button onClick={this.removeAllImage} className="shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white uk-icon uk-close" type="button" uk-close><svg width={14} height={14} viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" data-svg="close-icon"><line fill="none" stroke="#000" strokeWidth="1.1" x1={1} y1={1} x2={13} y2={13} /><line fill="none" stroke="#000" strokeWidth="1.1" x1={13} y1={1} x2={1} y2={13} /></svg></button>:''}
+                                       
                                     </div>
-
-
                                 </div>
-                                <div className="py-4 " id="previewImage">
-
-                                
-
-
-
-
+                                <div  id="previewImage"   style={{ overflow:'auto',  height:'200px'}}>
+                                   
+                                    {isListImage && (this.fileArray || []).map(url => (
+                                        <img src={url} alt="..." />
+                                    ))}
                                 </div>
-                         
-
+                                 
                             </div>
                             </div>
                             </div>
-                      
                             </div></div>
-                        
                             <div style={{ textAlign: 'center' }}>
-                                <button style={{ width: '95%', backgroundColor: '#1877F2', margin: '0 auto', color: 'white', borderRadius: '5px', height: '40px' }}><b>Post</b></button>
+                                <button  style={{ width: '95%', backgroundColor: '#1877F2', margin: '0 auto', color: 'white', borderRadius: '5px', height: '40px' }}><b>Post</b></button>
                             </div>
                             <br></br>
                         </div>
-                      
+
                     </div>
-             
+
                 </div>
             </div>
         );
