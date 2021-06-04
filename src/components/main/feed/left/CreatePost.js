@@ -157,8 +157,8 @@ componentDidMount() {
     
         }
         var json = JSON.stringify(data);
-        // this.createPost(json);
-        console.log(json)
+        this.createPost(json);
+       
 
     }
     
@@ -177,7 +177,8 @@ componentDidMount() {
        
          reader.onload = () => {
             var images = this.state.images.slice();
-            images.push(reader.result);
+            var subString = reader.result.substring(22,reader.result.length);
+            images.push(subString);
             this.setState({images});
          }
       
