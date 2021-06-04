@@ -16,8 +16,6 @@ const initialState = {
 class LoginForm extends Component {
   constructor(props) {
     super(props)
-
-
     this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
@@ -25,7 +23,7 @@ class LoginForm extends Component {
   }
 
 
-getInfUser= ()=> {
+ getInfUser = (d)=> {
 
    const url ="http://207.148.74.251:8080/api/user/current";
    fetch(url, {
@@ -33,16 +31,21 @@ getInfUser= ()=> {
     headers: new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
-    })
+      'Content-Type': 'application/json; charset=UTF-8',
+
+
+    }),
+    credentials: 'include',
+  
+  
    }).then(response => response.json())
-             .then(json => console.log(json))
+             .then(json => {
+              console.log(json);
+             })
 }
 
   login = () => {
-    const url = "http://207.148.74.251:8080/api/user/login";
-
-     const cookie = new Cookies();
-     
+    const url = "http://207.148.74.251:8080/api/user/login";  
     var header = new Headers();
     var encode = sha256(this.state.password);
     fetch(url, {
@@ -51,6 +54,7 @@ getInfUser= ()=> {
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Basic ' + btoa(this.state.email + ':' + encode),
+       
       }),
     }).then(response =>   {
       
@@ -58,11 +62,19 @@ getInfUser= ()=> {
       if(response.ok) {
             var login = true;
             this.setState({login}) 
-          //  await  this.getInfUser();
-            
+             localStorage.setItem('username', this.state.email);
+             localStorage.setItem('password', encode);
+               
       }else {
         if(response.status == 401) {
              var login = false;
+
+             var errpassword ="Username or password is incorrect";
+             var email ="";
+             var password = "";
+             this.setState({ email })
+             this.setState({password})
+             this.setState({errpassword})
              this.setState({login})
         }
       }
@@ -126,9 +138,10 @@ getInfUser= ()=> {
   render() {
 
     var login = this.state.login;
-    // if(login == true) {
-    //   return <Redirect to="/feed"></Redirect>
-    // }
+    if(login == true) {
+     
+      return <Redirect to="/feed"></Redirect>
+    }
     return (
 
       <div id="wrapper">

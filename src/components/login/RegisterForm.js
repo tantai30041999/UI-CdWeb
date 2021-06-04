@@ -307,9 +307,9 @@ class RegisterForm extends Component {
       console.log(tmp);
       if (tmp.length > 0) {
         this.addNewUser(tmp);
-        // this.setState({
-        //   success: true,
-        // })
+        this.setState({
+          success: true,
+        })
       } else {
         this.setState(initialState);
       }

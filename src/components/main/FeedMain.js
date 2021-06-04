@@ -6,6 +6,7 @@ import SlideBar from '../slidebar/SlideBar';
 class FeedMain extends Component {
       constructor(props) {
         super(props);
+        console.log(localStorage.getItem('user'))
        this.state = {
          dataPost :"",
        }
@@ -38,9 +39,12 @@ loadData () {
 
      
     render() {
+ 
+
         return (
             <div>
             <div id="wrapper">
+      
                <SlideBar/>
               <div className="main_content">
                 <Header/>

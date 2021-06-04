@@ -1,75 +1,190 @@
 import React, { Component } from 'react';
 import $, { error } from 'jquery';
 import { enc } from 'crypto-js';
-import ReactFileReader from 'react-file-reader';
+import { Redirect } from 'react-router';
 
-
-      
- 
-
+var sqlDatetime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000).toJSON().slice(0, 19).replace('T', ' ');
 class CreatePost extends Component {
     fileObj = [];
     fileArray = [];
+
     constructor(props) {
         super(props)
         this.state = {
-            files: []
+            id: "",
+            caption :"",
+            create_at: sqlDatetime.substring(0, 10),
+            deleted_at:"",
+            images: [],
+            public_post :true,
+            posted_by_id :"",
+            login : false,
+            isdisabled : true,
+            colorButton :"#E0E0E0",
+            color : "#606060"
+
         }
         this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
         this.uploadFiles = this.uploadFiles.bind(this)
-  
+
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleStatePost = this.handleStatePost.bind(this);
         this.removeAllImage = this.removeAllImage.bind(this);
+
+    }
+componentDidMount() {
+    let email = localStorage.getItem('username');
+    let password = localStorage.getItem('password');
+
+    console.log(email+" "+ password)
+      this.getUser(email,password);
+}
+// get user current
+   getUser = (email, password) => {
+
+    const url ="http://207.148.74.251:8080/api/user/current";
+    fetch(url, {
+       method: 'GET',
+       headers: new Headers({
+         'Accept': 'application/json',
+         'Content-Type': 'application/json; charset=UTF-8',
+         'Authorization': 'Basic ' + btoa(email +':'+password),
+       }),
+      
+   }).then(response => response.json())
+     .then(json => {
+           if(json.status == 401) {
+                   this.state.login = false;
+           }else {
+            var posted_by_id = json;
+            this.setState({posted_by_id});
+            var login = true;
+            this.setState({login})
+           }
+       
+     })
+   }
+    handleStatePost= async () => {
+        var public_post =  await $('#statePost').find(":selected").val();
+        this.setState({public_post});
+       
+       
+    }
+
+
+
+   createPost =(data) => {
+     const url ="http://207.148.74.251:8080/api/post/create";
+     fetch(url, {
+        method: 'POST',
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Basic ' + btoa(localStorage.getItem('username')+":"+localStorage.getItem('password')),
+        }),
+        body : data
+    }).then(response => response.json())
+      .then(json => console.log(json))
+
+    
+
+    
+}
+
+    async handleChange(event) {
+        var tag = event.target.name;
+        var valueCaption = event.target.value;
+        if(tag =="caption") {
+            if( valueCaption != "") {
+              
+                var isdisabled = false;
+                var colorButton = "#1877F2";
+                var color ="white";
+               await this.setState({isdisabled});
+               await this.setState({colorButton});
+               await this.setState({color});
+            }else {
+                var isdisabled = true;
+                var colorButton ="#E0E0E0";
+                var color ="#606060";
+              await  this.setState({isdisabled});
+              await this.setState({colorButton});
+              await this.setState({color});
+
+            }
+        }
+        console.log(this.state.isdisabled)
+        await this.setState({
+            [event.target.name]: event.target.value
+          })
+
+        
    
     }
 
-    removeAllImage = ()=> {
-        var file ="";
-        this.setState({file})
+    removeAllImage = () => {
+        var images = [];
+        this.setState({ images })
     }
     uploadMultipleFiles(e) {
         this.fileObj.push(e.target.files)
-        var files = [];
-        for (let i = 0; i < this.fileObj[0].length; i++) {
-
-            var converter = this.convertBase64(this.fileObj[0][i]);
-            files.push(converter);
         
-            this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
-
-            
+        for (let i = 0; i < this.fileObj[0].length; i++) {
+         this.convertBase64(this.fileObj[0][i]);
+          this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
         }
-        this.setState({ files})
+
+    }
+    addImage(image) {
+       
+        return this.images.push(image);
+    }
+    uploadFiles(e) {
+    e.preventDefault()
+    if(this.state.isdisabled == false) {
+       
+  
+        var data = {
+            id: null,
+            caption :this.state.caption,
+            createdAt: this.state.create_at,
+            deleteAt:null,
+            images: this.state.images,
+            publicPost : this.state.public_post,
+            postedBy : this.state.posted_by_id,
+    
+        }
+        var json = JSON.stringify(data);
+        // this.createPost(json);
+        console.log(json)
+
+    }
+    
+
 
      
-       
+    
+      
     }
-     uploadFiles(e) {
-        e.preventDefault()
-        console.log(this.state.files);
-        // var file = document.getElementById('addFile').files;
-       
-        // console.log(this.state.file[0]);
-        // var f = new File(this.state.file[0]);
-        // this.convertBase64();
-    }
+ 
 
-    convertBase64 = (file)=> {
+      async convertBase64 (file)  {
         var reader = new FileReader();
+      
         reader.readAsDataURL(file);
-        reader.onload = () => {
-            console.log(reader.result);
-        }
+       
+         reader.onload = () => {
+            var images = this.state.images.slice();
+            images.push(reader.result);
+            this.setState({images});
+         }
+      
         reader.onerror = (error) => {
-           console.log(error);
-        } 
-   
+            console.log(error);
+        }
     }
-
-
-
-
     showModal() {
         $('#story-modal').show();
     }
@@ -80,11 +195,18 @@ class CreatePost extends Component {
 
     render() {
 
+        
         var isListImage = false;
-        if(this.state.files.length >0) {
+        var login = this.state.login;
+        // if(login == false) {
+        //     return <Redirect to="/home"></Redirect>
+        // }
+        if (this.state.images.length > 0) {
             isListImage = true;
         }
-        
+
+
+
         return (
             <div>
                 <div className="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
@@ -141,41 +263,40 @@ class CreatePost extends Component {
                                     </a>
 
                                     <span className="block text-lg font-semibold"> Johnson smith </span>
-                                    <select style={{ width: '100px', height: '30px' }}>
-
-                                        <option>Public</option>
-                                        <option>Private</option>
+                                    <select onChange={this.handleStatePost} id="statePost" style={{ width: '100px', height: '30px' }}>
+                                           <option value="true"selected>Public</option>
+                                           <option value="false">Private</option>
                                     </select>
                                 </div>
                                 <br></br>
-                                <textarea rows={4} cols={50} defaultValue={""} style={{ resize: 'none' }} />
+                                <textarea name="caption"  onChange={this.handleChange} rows={4} cols={50} defaultValue={""} style={{ resize: 'none' }} />
                                 <div className="py-4 ">
                                     <div className="flex justify-around">
 
                                         <div className="flex space-x-4 lg:font-bold">
-                                          
-                                            <input type="file" id="addFile"  onChange={this.uploadMultipleFiles} classname="bg-white py-2 px-4 rounded shadow" multiple />
 
-                                           
+                                            <input type="file" id="addFile" onChange={this.uploadMultipleFiles} classname="bg-white py-2 px-4 rounded shadow" multiple />
+
+
                                         </div>
 
-                                        {isListImage ?  <button onClick={this.removeAllImage} className="shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white uk-icon uk-close" type="button" uk-close><svg width={14} height={14} viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" data-svg="close-icon"><line fill="none" stroke="#000" strokeWidth="1.1" x1={1} y1={1} x2={13} y2={13} /><line fill="none" stroke="#000" strokeWidth="1.1" x1={13} y1={1} x2={1} y2={13} /></svg></button>:''}
-                                       
+                                        {isListImage ? <button onClick={this.removeAllImage} className="shadow-lg bg-white rounded-full p-4 transition dark:bg-gray-600 dark:text-white uk-icon uk-close" type="button" uk-close><svg width={14} height={14} viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" data-svg="close-icon"><line fill="none" stroke="#000" strokeWidth="1.1" x1={1} y1={1} x2={13} y2={13} /><line fill="none" stroke="#000" strokeWidth="1.1" x1={13} y1={1} x2={1} y2={13} /></svg></button> : ''}
+
                                     </div>
                                 </div>
-                                <div  id="previewImage"   style={{ overflow:'auto',  height:'200px'}}>
-                                   
+                                <div id="previewImage" style={{ overflow: 'auto', height: '200px' }}>
+
                                     {isListImage && (this.fileArray || []).map(url => (
                                         <img src={url} alt="..." />
                                     ))}
                                 </div>
-                                 
+
                             </div>
                             </div>
                             </div>
                             </div></div>
                             <div style={{ textAlign: 'center' }}>
-                                <button onClick={this.uploadFiles}  style={{ width: '95%', backgroundColor: '#1877F2', margin: '0 auto', color: 'white', borderRadius: '5px', height: '40px' }}><b>Post</b></button>
+                             <button id="submitPost"  onClick={this.uploadFiles} style={{ width: '95%', backgroundColor: this.state.colorButton, margin: '0 auto', color: this.state.color, borderRadius: '5px', height: '40px' }} ><b>Post</b></button>
                             </div>
                             <br></br>
                         </div>
