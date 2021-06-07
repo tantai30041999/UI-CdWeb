@@ -66,15 +66,10 @@ componentDidMount() {
        
      })
    }
-    handleStatePost= async () => {
+    handleStatePost = async () => {
         var public_post =  await $('#statePost').find(":selected").val();
-        this.setState({public_post});
-       
-       
+        this.setState({public_post});  
     }
-
-
-
    createPost =(data) => {
      const url ="http://207.148.74.251:8080/api/post/create";
      fetch(url, {
@@ -87,12 +82,8 @@ componentDidMount() {
         body : data
     }).then(response => response.json())
       .then(json => console.log(json))
-
-    
-
     
 }
-
     async handleChange(event) {
         var tag = event.target.name;
         var valueCaption = event.target.value;
@@ -144,8 +135,6 @@ componentDidMount() {
     uploadFiles(e) {
     e.preventDefault()
     if(this.state.isdisabled == false) {
-       
-  
         var data = {
             id: null,
             caption :this.state.caption,
@@ -158,25 +147,16 @@ componentDidMount() {
         }
         var json = JSON.stringify(data);
         this.createPost(json);
-       
-
+    }  
     }
-    
-
-
-      
-    }
- 
-
       async convertBase64 (file)  {
-        var reader = new FileReader();
-      
+        var reader = new FileReader();     
         reader.readAsDataURL(file);
-       
          reader.onload = () => {
             var images = this.state.images.slice();
-            var subString = reader.result.substring(22,reader.result.length);
-            images.push(subString);
+            var array = reader.result.split(',');
+            images.push(array[1]);
+           
             this.setState({images});
          }
       
