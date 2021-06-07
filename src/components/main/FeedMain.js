@@ -32,6 +32,7 @@ class FeedMain extends Component {
       .then(response => response.json())
       .then(json => {
         var AllPost = this.convertArray(json);
+        console.log(AllPost)
         this.setState({ AllPost });
       })
   }
