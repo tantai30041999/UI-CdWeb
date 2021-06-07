@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 
 class HeaderPost extends Component {
+      constructor(props) {
+        super(props) 
+    
+
+      }
     render() {
+      var posetedBy = this.props.dataHeader;
+
+
         return (
             <div className="flex justify-between items-center px-4 py-3">
             <div className="flex flex-1 items-center space-x-4">
@@ -10,7 +18,7 @@ class HeaderPost extends Component {
                   <img src="assets/images/avatars/avatar-2.jpg" className="bg-gray-200 border border-white rounded-full w-8 h-8" />
                 </div>
               </a>
-              <span className="block capitalize font-semibold dark:text-gray-100"> Johnson smith </span>
+              <span className="block capitalize font-semibold dark:text-gray-100">{posetedBy}</span>
             </div>
             <div>
               <a href="#"> <i className="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 dark:hover:bg-gray-700" /> </a>
