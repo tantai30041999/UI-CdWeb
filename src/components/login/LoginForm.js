@@ -165,7 +165,7 @@ class LoginForm extends Component {
                 <input type="checkbox" id="chekcbox1" defaultChecked />
                 <label htmlFor="chekcbox1"><span className="checkbox-icon" />Remember Me</label>
               </div>
-              <a href="#"> Forgot Your Password? </a>
+              <a href="/forget"> Forgot Your Password? </a>
             </div>
             <button type="submit" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
             <div className="text-center mt-5 space-x-2">

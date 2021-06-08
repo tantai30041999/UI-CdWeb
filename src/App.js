@@ -9,6 +9,8 @@ import ExploreMain from './components/main/ExploreMain';
 import MessageMain from './components/main/MessageMain';
 import TrendingMain from './components/main/TrendingMain';
 import ProfileMain from './components/main/ProfileMain';
+import ForgetPass from './components/login/ForgetPass';
+import CoverForget from './components/login/CoverForget';
 
 
 function App() {
@@ -26,6 +28,13 @@ function App() {
                     </Route >
                     <Route exact path="/register">
                         <RegisterForm />
+                    </Route>
+
+                    <Route exact path="/forget">
+                        <ForgetPass />
+                    </Route>
+                    <Route exact path="/coverforget">
+                        <CoverForget />
                     </Route>
                     <Route exact path="/feed">
                         <FeedMain/>
