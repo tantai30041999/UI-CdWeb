@@ -23,7 +23,7 @@ class LoginForm extends Component {
   }
 
 
- getInfUser = (d)=> {
+ getInfUser = (email,password)=> {
 
    const url ="http://207.148.74.251:8080/api/user/current";
    fetch(url, {
@@ -31,16 +31,18 @@ class LoginForm extends Component {
     headers: new Headers({
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
-      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Basic ' + btoa(email + ':' + password)
 
 
     }),
-    credentials: 'include',
+
   
   
    }).then(response => response.json())
              .then(json => {
-              console.log(json);
+               var userInf = json;
+               
+                localStorage.setItem('userInf',JSON.stringify(userInf));
              })
 }
 
@@ -64,6 +66,9 @@ class LoginForm extends Component {
             this.setState({login}) 
              localStorage.setItem('username', this.state.email);
              localStorage.setItem('password', encode);
+             this.getInfUser(this.state.email, encode);
+           
+
                
       }else {
         if(response.status == 401) {

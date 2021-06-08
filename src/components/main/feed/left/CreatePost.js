@@ -3,7 +3,21 @@ import $, { error } from 'jquery';
 import { enc } from 'crypto-js';
 import { Redirect } from 'react-router';
 
+
 var sqlDatetime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000).toJSON().slice(0, 19).replace('T', ' ');
+var initialState = {
+    id: "",
+    caption :"",
+    create_at: sqlDatetime.substring(0, 10),
+    deleted_at:"",
+    images: [],
+    public_post :true,
+    posted_by_id :"",
+    login : false,
+    isdisabled : true,
+    colorButton :"#E0E0E0",
+    color : "#606060"
+}
 class CreatePost extends Component {
     fileObj = [];
     fileArray = [];
@@ -32,6 +46,7 @@ class CreatePost extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleStatePost = this.handleStatePost.bind(this);
         this.removeAllImage = this.removeAllImage.bind(this);
+        this.loadFeedPost = this.loadFeedPost.bind(this);
 
     }
 componentDidMount() {
@@ -41,9 +56,18 @@ componentDidMount() {
     console.log(email+" "+ password)
       this.getUser(email,password);
 }
+
+ loadFeedPost = async (e) => {
+    e.preventDefault();
+    await this.uploadFiles();
+    this.props.loadPost();
+
+    $('#story-modal').hide();
+    this.setState({initialState})
+    
+}
 // get user current
    getUser = (email, password) => {
-
     const url ="http://207.148.74.251:8080/api/user/current";
     fetch(url, {
        method: 'GET',
@@ -109,9 +133,7 @@ componentDidMount() {
         console.log(this.state.isdisabled)
         await this.setState({
             [event.target.name]: event.target.value
-          })
-
-        
+          }) 
    
     }
 
@@ -132,8 +154,8 @@ componentDidMount() {
        
         return this.images.push(image);
     }
-    uploadFiles(e) {
-    e.preventDefault()
+   async uploadFiles() {
+
     if(this.state.isdisabled == false) {
         var data = {
             id: null,
@@ -275,7 +297,7 @@ componentDidMount() {
                             </div>
                             </div></div>
                             <div style={{ textAlign: 'center' }}>
-                             <button id="submitPost"  onClick={this.uploadFiles} style={{ width: '95%', backgroundColor: this.state.colorButton, margin: '0 auto', color: this.state.color, borderRadius: '5px', height: '40px' }} ><b>Post</b></button>
+                             <button id="submitPost"  onClick={this.loadFeedPost} style={{ width: '95%', backgroundColor: this.state.colorButton, margin: '0 auto', color: this.state.color, borderRadius: '5px', height: '40px' }} ><b>Post</b></button>
                             </div>
                             <br></br>
                         </div>

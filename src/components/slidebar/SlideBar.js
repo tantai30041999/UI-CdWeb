@@ -11,7 +11,15 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from '../header/Header';
 
 class SlideBar extends Component {
+      constructor(props) {
+          super(props) 
+          this.state  = {
+            userInfo : JSON.parse(localStorage.getItem('userInf'))
+          }
+      }
+
   render() {
+       console.log(this.state.userInfo)
     return (
 
 
@@ -34,7 +42,7 @@ class SlideBar extends Component {
             <div className="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transition m-0.5 mr-2  w-24 h-24">
               <img src="assets/images/avatars/avatar-2.jpg" className="bg-gray-200 border-4 border-white rounded-full w-full h-full" />
             </div>
-            <a href="profile.html" className="text-xl font-medium capitalize mt-4 uk-link-reset"> Stella Johnson
+            <a href="profile.html" className="text-xl font-medium capitalize mt-4 uk-link-reset">{this.state.userInfo.displayName}
               </a>
             <div className="flex justify-around w-full items-center text-center uk-link-reset text-gray-800 mt-6">
               <div>

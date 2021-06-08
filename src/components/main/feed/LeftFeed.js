@@ -9,10 +9,14 @@ class LeftFeed extends Component {
     constructor(props) {
         super(props)
         this.state = {
-          
-
+              abc:"",
         }
+      
+       
+   
     }
+
+   
     render() {
         var dataPost   = [];
         dataPost  =  this.props.dataFromParent;
@@ -24,7 +28,7 @@ class LeftFeed extends Component {
         return (
 
             <div className="space-y-5 flex-shrink-0 lg:w-7/12">
-                <CreatePost />
+                <CreatePost loadPost={this.props.updatePost}/>
                  {listPost}  
                 <Load />
                 <PostHiden />
