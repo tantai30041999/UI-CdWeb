@@ -42,6 +42,7 @@ function App() {
                     <Route exact path="/profile">
                         <ProfileMain/>
                     </Route>
+                   
                 </Switch>
             </BrowserRouter>
    

@@ -11,8 +11,8 @@ class HeaderStart extends Component {
                 <img src="assets/images/logo.png" alt="" className="w-32" />
               </a>
               <div className="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
-                <a href="form-login.html" className="py-3 px-4">Login</a>
-                <a href="form-register.html" className="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
+                <a href="/home" className="py-3 px-4">Login</a>
+                <a href="/register" className="bg-pink-500 pink-500 px-6 py-3 rounded-md shadow text-white">Register</a>
               </div>
             </div>
           </div>

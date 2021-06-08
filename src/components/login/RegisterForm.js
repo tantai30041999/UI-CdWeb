@@ -4,6 +4,8 @@ import $ from 'jquery';
 import { sha256 } from 'js-sha256';
 import { Redirect } from 'react-router';
 import HeaderStart from '../header/start/HeaderStart';
+import HeaderSuccess from '../header/start/HeaderSuccess';
+import Header from '../header/Header';
 
 
 
@@ -320,13 +322,18 @@ class RegisterForm extends Component {
     var existed = this.state.err_sameEmail;
    
 
-    if (signUp == true) {
-      return <Redirect to="/login" />
-    }
+    // if (signUp == true) {
+    //   return <Redirect to="/login" />
+    // }
     return (
     
       <div id="wrapper">
+        
+      {(signUp == false) ? 
+      
+      <div>
       <HeaderStart/>
+      
         <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
           <h1 className="lg:text-3xl text-xl font-semibold mb-6"> Sign in</h1>
           <p className="mb-2 text-black text-lg"> Register to manage your account </p>
@@ -359,10 +366,42 @@ class RegisterForm extends Component {
             </div>
             <button type="submit" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Register</button>
             <div className="text-center mt-5 space-x-2">
-              <p className="text-base"> Do you have an account? <a href="/login"> Login </a></p>
+              <p className="text-base"> Do you have an account? <a href="/home"> Login </a></p>
             </div>
           </form>
         </div>
+
+
+      </div>
+
+      :
+   
+      <div>
+        <HeaderSuccess/>
+        <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+          <h1 className="lg:text-3xl text-xl font-semibold mb-6"> Success!</h1>
+          <p className="mb-2 text-black text-lg"> You have successfully registered an account.</p>
+          <form  >
+            <div className="flex lg:flex-row flex-col lg:space-x-2">
+            
+            </div>
+
+           
+            <div className="flex justify-start my-4 space-x-1">
+              <div className="checkbox">
+               
+              </div>
+            
+            </div>
+            <a  href="/home" style={{textAlign:'center'}} type="button" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login now</a>
+        
+          </form>
+        </div>
+      </div>
+      
+      }
+      
+     
       </div>
     );
 

@@ -143,13 +143,14 @@ class LoginForm extends Component {
   render() {
 
     var login = this.state.login;
-    if(login == true) {
+    // if(login == true) {
      
-      return <Redirect to="/feed"></Redirect>
-    }
+    //   return <Redirect to="/feed"></Redirect>
+    // }
     return (
-
+     
       <div id="wrapper">
+    
         <HeaderStart />
         <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
           <h1 className="lg:text-3xl text-xl font-semibold  mb-6"> Log in</h1>
