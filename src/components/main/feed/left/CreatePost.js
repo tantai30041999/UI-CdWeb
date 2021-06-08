@@ -16,7 +16,8 @@ var initialState = {
     login : false,
     isdisabled : true,
     colorButton :"#E0E0E0",
-    color : "#606060"
+    color : "#606060",
+    place :  "",
 }
 class CreatePost extends Component {
     fileObj = [];
@@ -35,7 +36,9 @@ class CreatePost extends Component {
             login : false,
             isdisabled : true,
             colorButton :"#E0E0E0",
-            color : "#606060"
+            color : "#606060",
+            place :  "",
+          
 
         }
         this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
@@ -86,6 +89,8 @@ componentDidMount() {
             this.setState({posted_by_id});
             var login = true;
             this.setState({login})
+            var place = "What's on your mind?, "+posted_by_id.displayName;
+            this.setState({place})
            }
        
      })
@@ -165,6 +170,8 @@ componentDidMount() {
             images: this.state.images,
             publicPost : this.state.public_post,
             postedBy : this.state.posted_by_id,
+           
+
     
         }
         var json = JSON.stringify(data);
@@ -219,7 +226,7 @@ componentDidMount() {
                                     <img src="assets/images/avatars/avatar-2.jpg" className="bg-gray-200 border border-white rounded-full w-8 h-8" />
                                 </div>
                             </a>
-                            <span className="block capitalize font-semibold dark:text-gray-100"> Johnson smith </span>
+                            <span className="block capitalize font-semibold dark:text-gray-100">{this.state.posted_by_id.displayName}</span>
                         </div>
 
                     </div>
@@ -228,14 +235,11 @@ componentDidMount() {
 
 
                         <div className="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800">
-                            <input type="text" placeholder="What's on your mind?" className="bg-transparent max-h-10 shadow-none" onClick={this.showModal} />
+                            <input type="text" placeholder={this.state.place} className="bg-transparent max-h-10 shadow-none" onClick={this.showModal} />
 
                         </div>
-                        <hr></hr>
-                        <div className="flex space-x-4 lg:font-bold">
-
-                            <a href="#" className="bg-white py-2 px-4 rounded shadow" >Image/Video</a>
-                        </div>
+                       
+                      
                     </div>
                 </div>
 
@@ -263,7 +267,7 @@ componentDidMount() {
 
                                     </a>
 
-                                    <span className="block text-lg font-semibold"> Johnson smith </span>
+                                    <span className="block text-lg font-semibold">{this.state.posted_by_id.displayName}</span>
                                     <select onChange={this.handleStatePost} id="statePost" style={{ width: '100px', height: '30px' }}>
                                            <option value="true"selected>Public</option>
                                            <option value="false">Private</option>
