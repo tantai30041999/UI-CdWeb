@@ -143,10 +143,10 @@ class LoginForm extends Component {
   render() {
 
     var login = this.state.login;
-    // if(login == true) {
+    if(login == true) {
      
-    //   return <Redirect to="/feed"></Redirect>
-    // }
+      return <Redirect to="/feed"></Redirect>
+    }
     return (
      
       <div id="wrapper">

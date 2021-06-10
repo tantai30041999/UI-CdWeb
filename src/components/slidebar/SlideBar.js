@@ -19,7 +19,7 @@ class SlideBar extends Component {
       }
 
   render() {
-       console.log(this.state.userInfo)
+    
     return (
 
 

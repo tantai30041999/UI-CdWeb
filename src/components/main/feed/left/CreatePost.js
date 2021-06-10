@@ -89,7 +89,7 @@ componentDidMount() {
             this.setState({posted_by_id});
             var login = true;
             this.setState({login})
-            var place = "What's on your mind?, "+posted_by_id.displayName;
+            var place = "What's on your mind, "+posted_by_id.displayName+"?";
             this.setState({place})
            }
        

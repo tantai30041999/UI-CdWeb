@@ -3,6 +3,7 @@ import LeftFeed from './feed/LeftFeed';
 import RightFeed from './feed/RightFeed';
 import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
+
 class FeedMain extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ class FeedMain extends Component {
       .then(response => response.json())
       .then(json => {
         var AllPost = this.convertArray(json);
-        console.log(AllPost)
+       
         this.setState({ AllPost });
       })
   
@@ -88,6 +89,7 @@ class FeedMain extends Component {
               <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
                 {/* left sidebar*/}
                 <LeftFeed dataFromParent={this.state.AllPost}  updatePost={this.updateData}/>
+                
                 {/* right sidebar*/}
                 <RightFeed />
               </div>
