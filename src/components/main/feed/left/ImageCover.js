@@ -4,20 +4,27 @@ class ImageCover extends Component {
      constructor(props) {
          super(props)
          this.state ={
-             srcImage :"",
+            
+             srcImage : "" ,
          }
 
      }
+   
     componentDidMount() {
+       
         this.getImage();
 
     }
+    componentDidUpdate() {
+        this.getImage();
+    }
  
 async getImage() {
-   
+     console.log("Imagecover")
     let username = localStorage.getItem('username');
     let password = localStorage.getItem('password');
     var idImage = this.props.idImage;
+  
     const url ="http://207.148.74.251:8080/nonauth/api/image/"+idImage;
 
     fetch(url, {
@@ -30,12 +37,17 @@ async getImage() {
       })
         .then(response => response.blob())
         .then(blobConvert =>  {
-            let reader = new FileReader();
-            reader.onload = () => {
-                var srcImage = reader.result;
-               this.setState({srcImage})
+            if(blobConvert != null) {
+                let reader = new FileReader();
+                reader.onload = () => {
+                 var srcImage = reader.result;
+                
+                   this.setState({srcImage})
+                }
+                reader.readAsDataURL(blobConvert)
             }
-            reader.readAsDataURL(blobConvert)
+          
+           
             
         })
        
@@ -43,6 +55,7 @@ async getImage() {
 }
     render() {
         var src = this.state.srcImage;
+   
     
         return (
 

@@ -8,8 +8,10 @@ class Post extends Component {
     var data = this.props.dataPost;
     var updateData = this.props.updateData;
     var dataHeader =  data;
-    var dataBody = data;
+    var dataBody =  this.props.dataPost;
  
+    console.log("update")
+    console.log(dataBody);
     return (
      
 

@@ -4,15 +4,15 @@ class HeaderPost extends Component {
       constructor(props) {
         super(props)  
         this.state = {
-          idPost : this.props.dataHeader.id,
+          
         }
         this.deletePost = this.deletePost.bind(this);
       }
 
-   deletePost =   () => { 
- 
-
-        this.props.updateData(this.state.idPost);
+   deletePost =  (e) => { 
+    e.preventDefault();
+    var idPost = this.props.dataHeader.id;
+    this.props.updateData(idPost);
           
   }
 

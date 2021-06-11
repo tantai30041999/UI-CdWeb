@@ -13,22 +13,29 @@ class LeftFeed extends Component {
             data :[],
         }  
     }
-    // componentDidMount () {
-    //     var dataPost = ;
-    //     console.log(dataPost)
-    //     this.setState({dataPost})
-    // }
-  
+    componentDidMount () {
+        var data =  this.props.dataFromParent;
+        this.setState({data})
+    }
+  componentDidUpdate(preProps) {
+      if(preProps.dataFromParent != this.props.dataFromParent) {
+          this.setState({data : this.props.dataFromParent})
+      }
+  }
     render() {
         
      
        
         var uploadData  =  this.props.updatePost;
-        var data = this.props.dataFromParent ;
+        // var data = this.state.data ;
+    
         var listPost = [];
-        listPost = data.map(function(item, index) {
+    
+        listPost = this.state.data.map(function(item, index) {
                  return <Post key={index} dataPost={item}  updateData = {uploadData}/>
-        })  
+        })
+        console.log("Left-List"); 
+        console.log(listPost) ;
 
 
         return (
