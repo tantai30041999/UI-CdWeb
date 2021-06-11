@@ -6,6 +6,7 @@ import HeaderPost from './HeaderPost';
 class Post extends Component {
   render() {
     var data = this.props.dataPost;
+    var updateData = this.props.updateData;
     var dataHeader =  data;
     var dataBody = data;
  
@@ -13,7 +14,7 @@ class Post extends Component {
      
 
       <div className="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
-         <HeaderPost dataHeader= {dataHeader} updateAllPost={this.props.loadPostFeed} />
+         <HeaderPost dataHeader= {dataHeader} updateData = {updateData} />
          <BodyPost dataBody ={dataBody}/>
          <FooterPost/>
       </div>

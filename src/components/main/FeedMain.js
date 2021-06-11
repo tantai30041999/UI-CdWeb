@@ -10,17 +10,19 @@ class FeedMain extends Component {
 
     this.state = {
       AllPost: [],
+      idDelPost: "",
     }
-    this.updateData = this.updateData.bind(this);
+    // this.updateState = this.updateState.bind(this);
+    this.getPostById = this.getPostById.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
   }
 
-  
 
-  loadData() {
+
+  async loadData() {
 
     let username = localStorage.getItem('username');
     let password = localStorage.getItem('password');
@@ -36,34 +38,62 @@ class FeedMain extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        var AllPost = this.convertArray(json);
-       
+        var AllPost = this.convertArray(json).reverse();
+        console.log("OK load again");
         this.setState({ AllPost });
       })
   }
 
-  updateData = () => {
-    let username = localStorage.getItem('username');
-    let password = localStorage.getItem('password');
 
-    const url = "http://207.148.74.251:8080/api/post/all";
+  // updateState() {
+
+  //   let username = localStorage.getItem('username');
+  //   let password = localStorage.getItem('password');
+
+  //   const url = "http://207.148.74.251:8080/api/post/all";
+  //   fetch(url, {
+  //     method: 'GET',
+  //     headers: new Headers({
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //       'Authorization': 'Basic ' + btoa(username + ":" + password),
+  //     }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       var AllPost = this.convertArray(json).reverse();
+  //       console.log(AllPost);
+  //       console.log("OK load update");
+  //       this.setState({ AllPost });
+  //     })
+  // }
+
+  async getPostById(idPost) {
+    var idDelPost = idPost;
+    await this.setState({ idDelPost });
+    console.log(this.state.idDelPost);
+    await this.deletedPost();
+
+  }
+
+  deletedPost = async () => {
+    const url = "http://207.148.74.251:8080/api/post/delete/" + this.state.idDelPost;
     fetch(url, {
-      method: 'GET',
+      method: 'POST',
       headers: new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Basic ' + btoa(username + ":" + password),
-      }),
-    })
-      .then(response => response.json())
-      .then(json => {
-        var AllPost = this.convertArray(json);
-       
-        this.setState({ AllPost });
+        'Authorization': 'Basic ' + btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'))
       })
-  
-   
+    }).then(response => {
+      if (response.status == 200) {
+
+          this.loadData();
+      
+      }
+    })
   }
+
 
   convertArray(jsonData) {
     var arrData = [];
@@ -75,6 +105,7 @@ class FeedMain extends Component {
 
 
   render() {
+    // var dataPost = this.state.AllPost;
 
 
     return (
@@ -88,8 +119,8 @@ class FeedMain extends Component {
               <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
               <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
                 {/* left sidebar*/}
-                <LeftFeed dataFromParent={this.state.AllPost}  updatePost={this.updateData}/>
-                
+                <LeftFeed dataFromParent={this.state.AllPost} updatePost={this.getPostById} />
+
                 {/* right sidebar*/}
                 <RightFeed />
               </div>

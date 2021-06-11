@@ -7,40 +7,18 @@ class HeaderPost extends Component {
           idPost : this.props.dataHeader.id,
         }
         this.deletePost = this.deletePost.bind(this);
-
-      
-    
-
       }
-  
-   deletePost = async () => {
-       
-       const url ="http://207.148.74.251:8080/api/post/delete/"+this.state.idPost;
-       fetch(url, {
-        method: 'delete',
-    
-      
-        headers: new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Basic ' + btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'))
+
+   deletePost =   () => { 
+ 
+
+        this.props.updateData(this.state.idPost);
           
-        
-    
-        })
-       }).then(response => response.json())
-          .then( json => console.log(json))
   }
+
     render() {
       var userPosted = this.props.dataHeader;
-    
       var user = JSON.parse(localStorage.getItem('userInf'));
-      
-
-     
-      
-
-
         return (
             <div className="flex justify-between items-center px-4 py-3">
             <div className="flex flex-1 items-center space-x-4">
@@ -77,7 +55,7 @@ class HeaderPost extends Component {
                   {userPosted.postedBy.id == user.id ?
                      <li>
                
-                     <a href="#"  onClick = {this.deletePost} className="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
+                     <a  onClick = {this.deletePost} className="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                        <i className="uil-trash-alt mr-1" />  Delete
                                </a>
                    </li>
