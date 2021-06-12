@@ -22,26 +22,17 @@ class LeftFeed extends Component {
           this.setState({data : this.props.dataFromParent})
       }
   }
-    render() {
-        
-     
-       
+    render() {     
         var uploadData  =  this.props.updatePost;
-        // var data = this.state.data ;
-    
+        var updateComponent = this.props.updateComponent;
         var listPost = [];
-    
         listPost = this.state.data.map(function(item, index) {
-                 return <Post key={index} dataPost={item}  updateData = {uploadData}/>
+                 return <Post key={index} dataPost={item}  updateData = {uploadData} updateComponent={updateComponent}/>
         })
-        console.log("Left-List"); 
-        console.log(listPost) ;
-
-
         return (
 
             <div className="space-y-5 flex-shrink-0 lg:w-7/12">
-                <CreatePost loadPost={uploadData}/>
+                <CreatePost updateAfterCreatePost={this.props.updateAfterCreatePost} updateComponent={updateComponent} />
             
                  {listPost}  
 

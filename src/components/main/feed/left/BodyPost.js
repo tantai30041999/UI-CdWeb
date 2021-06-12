@@ -5,6 +5,7 @@ import ImageSmall from './ImageSmall';
 class BodyPost extends Component {
  
     render() { 
+      var updateComponent = this.props.updateComponent;
       // var image = ;
       // var images_Post = showImage(images);
       
@@ -22,15 +23,14 @@ class BodyPost extends Component {
       //     //  }
       //      return imageViews;
       // }
-  
-  
+
         return (
             <div uk-lightbox>
               <div class="p-3 border-b dark:border-gray-700">
                 {this.props.dataBody.caption}
 </div>
             <div className="grid grid-cols-2 gap-2 p-2">
-            <ImageCover  idImage = {this.props.dataBody.images[0]}/>
+            <ImageCover updateComponent={updateComponent}  idImage = {this.props.dataBody.images[0]} />
      
             </div>
           </div>

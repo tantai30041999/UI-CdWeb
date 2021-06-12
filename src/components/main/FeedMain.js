@@ -11,15 +11,19 @@ class FeedMain extends Component {
     this.state = {
       AllPost: [],
       idDelPost: "",
+      updateComponent : false,
     }
 
     this.getPostById = this.getPostById.bind(this);
+    this.updateAfterCreatePost = this.updateAfterCreatePost.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
 
+    
   }
+
   async loadData() {
 
     let username = localStorage.getItem('username');
@@ -36,17 +40,22 @@ class FeedMain extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        var AllPost = this.convertArray(json);
-        console.log("OK load again");
+        var AllPost = this.convertArray(json).reverse();
+       
         this.setState({ AllPost });
       })
   }
   async getPostById(idPost) {
     var idDelPost = idPost;
     await this.setState({ idDelPost });
-    console.log(this.state.idDelPost);
     await this.deletedPost();
 
+  }
+
+  async updateAfterCreatePost(status) {
+       var updateComponent = status;
+       await this.setState({updateComponent});
+       await this.loadData();
   }
 
   deletedPost = async () => {
@@ -60,13 +69,17 @@ class FeedMain extends Component {
       })
     }).then(response => {
       if (response.status == 200) {
-
-           this.loadData();
+         
+         this.loadData();
+          
      
       
       }
     })
+    var updateComponent = true;
+    this.setState({updateComponent})
   }
+
 
 
   convertArray(jsonData) {
@@ -80,7 +93,7 @@ class FeedMain extends Component {
 
   render() {
     var dataPost = this.state.AllPost;
-
+   
 
     return (
       <div>
@@ -93,7 +106,7 @@ class FeedMain extends Component {
               <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
               <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
                 {/* left sidebar*/}
-                <LeftFeed dataFromParent={dataPost} updatePost={this.getPostById} />
+                <LeftFeed dataFromParent={dataPost}  updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.getPostById}  updateComponent={this.state.updateComponent}/>
 
                 {/* right sidebar*/}
                 <RightFeed />

@@ -55,15 +55,13 @@ class CreatePost extends Component {
 componentDidMount() {
     let email = localStorage.getItem('username');
     let password = localStorage.getItem('password');
-
-    console.log(email+" "+ password)
       this.getUser(email,password);
 }
 
  loadFeedPost = async (e) => {
     e.preventDefault();
     await this.uploadFiles();
-    this.props.loadPost();
+    this.props.updateAfterCreatePost(true);
 
     $('#story-modal').hide();
     this.setState({initialState})
