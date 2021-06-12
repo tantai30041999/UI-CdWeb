@@ -15,15 +15,14 @@ class Post extends Component {
     var data = this.props.dataPost;
     var updateComponent = this.props.updateComponent;
     var updateData = this.props.updateData;
-    var dataHeader =  data;
-    var dataBody =  this.props.dataPost; 
+  
     return (
      
 
       <div className="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
-         <HeaderPost dataHeader= {dataHeader} updateData = {updateData} />
-         <BodyPost dataBody ={dataBody} updateComponent= {updateComponent}/>
-         <FooterPost/>
+         <HeaderPost dataHeader= {data} updateData = {updateData} />
+         <BodyPost dataBody ={data} updateComponent= {updateComponent}/>
+         <FooterPost dataFooter ={data}/>
       </div>
     );
 

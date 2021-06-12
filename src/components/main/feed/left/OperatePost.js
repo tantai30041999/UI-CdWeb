@@ -5,9 +5,13 @@ class OperatePost extends Component {
    constructor(props) {
      super(props)
      this.state = {
-
-       liked : false,
-       fill :"currentColor",
+      id : null,
+      likingAt: "",
+      unlikingAt: "",
+      postId : "",
+      userId : "",
+      liked : false,
+      fill :"currentColor",
      }
      this.likedPost = this.likedPost.bind(this);
 
@@ -35,6 +39,29 @@ class OperatePost extends Component {
       }
     }
   }
+
+  loadLikePost = async () => {
+        
+    let email = localStorage.getItem('username');
+    let password = localStorage.getItem('password');
+    const url ="http://207.148.74.251:8080/api/postliking/all/post/"+this.state.postId;
+    fetch(url, {
+       method: 'GET',
+       headers: new Headers({
+         'Accept': 'application/json',
+         'Content-Type': 'application/json; charset=UTF-8',
+         'Authorization': 'Basic ' + btoa(email +':'+password),
+       }),
+      
+   }).then(response => response.json())
+     .then(json => {
+         
+        console.log(json);
+       
+     })
+ }
+
+
  createLiked = () => {
 
  }
