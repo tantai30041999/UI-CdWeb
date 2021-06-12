@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect } from 'react-router-dom';
 
 import TrendingMain from '../main/TrendingMain';
 import FeedMain from '../main/FeedMain';
@@ -14,16 +14,25 @@ class SlideBar extends Component {
       constructor(props) {
           super(props) 
           this.state  = {
-            userInfo : JSON.parse(localStorage.getItem('userInf'))
+            userInfo : "",
           }
       }
-
+checkLogin = () => {
+  if(localStorage.getItem('username') == null && localStorage.getItem('password') == null) {
+    return false;
+  }else {
+    var userInf =  JSON.parse(localStorage.getItem('userInf'));
+    this.setState({userInf});
+    return true;
+  }
+ 
+}
   render() {
-    
+    if(this.checkLogin() == false) {
+      return <Redirect to="/home"></Redirect>
+    }else {
+          
     return (
-
-
-
       <div className="sidebar">
         <div className="sidebar_header border-b border-gray-200 from-gray-100 to-gray-50 bg-gradient-to-t  uk-visible@s">
           <a href="#">
@@ -142,13 +151,9 @@ class SlideBar extends Component {
         </div>
       </div>
 
-
-
-
-
-
-
     );
+    }
+
   }
 }
 

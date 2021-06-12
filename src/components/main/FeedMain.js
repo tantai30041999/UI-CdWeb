@@ -3,6 +3,8 @@ import LeftFeed from './feed/LeftFeed';
 import RightFeed from './feed/RightFeed';
 import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
+import LoginForm from '../login/LoginForm';
+import { Redirect } from 'react-router';
 
 class FeedMain extends Component {
   constructor(props) {
@@ -92,32 +94,37 @@ class FeedMain extends Component {
 
 
   render() {
-    var dataPost = this.state.AllPost;
-   
-
-    return (
-      <div>
-        <div id="wrapper">
-
-          <SlideBar />
-          <div className="main_content">
-            <Header />
-            <div className="container m-auto">
-              <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
-              <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
-                {/* left sidebar*/}
-                <LeftFeed dataFromParent={dataPost}  updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.getPostById}  updateComponent={this.state.updateComponent}/>
-
-                {/* right sidebar*/}
-                <RightFeed />
+    
+    if(localStorage.getItem('username') == null && localStorage.getItem('password') == null) {
+      return <Redirect to="/home"></Redirect>
+    }else {
+      var dataPost = this.state.AllPost;
+      return (
+        <div>
+          <div id="wrapper">
+  
+            <SlideBar />
+            <div className="main_content">
+              <Header />
+              <div className="container m-auto">
+                <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
+                <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+                  {/* left sidebar*/}
+                  <LeftFeed dataFromParent={dataPost}  updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.getPostById}  updateComponent={this.state.updateComponent}/>
+  
+                  {/* right sidebar*/}
+                  <RightFeed />
+                </div>
               </div>
             </div>
           </div>
+  
         </div>
+      );
+  
+    }
 
-      </div>
-    );
-
+   
   }
 }
 

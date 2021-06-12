@@ -21,10 +21,7 @@ class LoginForm extends Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
 
   }
-
-
  getInfUser = (email,password)=> {
-
    const url ="http://207.148.74.251:8080/api/user/current";
    fetch(url, {
     method: 'GET',
@@ -32,12 +29,7 @@ class LoginForm extends Component {
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Basic ' + btoa(email + ':' + password)
-
-
     }),
-
-  
-  
    }).then(response => response.json())
              .then(json => {
                var userInf = json;
@@ -45,7 +37,6 @@ class LoginForm extends Component {
                 localStorage.setItem('userInf',JSON.stringify(userInf));
              })
 }
-
   login = () => {
     const url = "http://207.148.74.251:8080/api/user/login";  
     var header = new Headers();
@@ -66,10 +57,7 @@ class LoginForm extends Component {
             this.setState({login}) 
              localStorage.setItem('username', this.state.email);
              localStorage.setItem('password', encode);
-             this.getInfUser(this.state.email, encode);
-           
-
-               
+             this.getInfUser(this.state.email, encode);         
       }else {
         if(response.status == 401) {
              var login = false;
@@ -85,10 +73,7 @@ class LoginForm extends Component {
       }
     })
     
-     
   }
-
-
   async handleChange(event) {
     await this.setState({
       [event.target.name]: event.target.value
@@ -96,9 +81,6 @@ class LoginForm extends Component {
  
 
   }
-
-
-
   validationForm = () => {
     var erremail = "";
     let errpassword = "";
