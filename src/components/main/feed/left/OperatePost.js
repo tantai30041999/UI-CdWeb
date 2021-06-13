@@ -5,72 +5,187 @@ class OperatePost extends Component {
    constructor(props) {
      super(props)
      this.state = {
-      id : null,
-      likingAt: "",
-      unlikingAt: "",
-      postId : "",
-      userId : "",
+      idLiking :"",
+      idPost :"",
       liked : false,
+      likes : 0,
       fill :"currentColor",
+      user : "",
      }
      this.likedPost = this.likedPost.bind(this);
 
    }
+componentDidMount() {
+  var user = JSON.parse(localStorage.getItem('userInf'));
+  this.setState({user})
+  this.initialPost();
+}
 
-  initialPost = ()  => {
-    // load api
+  async initialPost() {
+    let email = localStorage.getItem('username');
+    let password = localStorage.getItem('password');
+
+    
+     const url ="http://207.148.74.251:8080/api/postliking/all/post/"+this.props.dataFooter.id;
+     fetch(url, {
+        method: 'GET',
+        headers: new Headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Basic ' + btoa(email +':'+password),
+        })
+
   }
-
+     
+     ).then(response => {
+      if(response.ok) {
+   
+           response.json().then( json => {
+               var likes = json.length ;
+              
+               for( var i in json) {
+              
+                 if(json[i].user.id == this.state.user.id) {
+                        likes--;
+                        var liked = true;
+                        var idLiking = json[i].id;
+                        this.setState({idLiking})
+                        this.setState({liked});
+                        this.changeLikeAndColor();
+                   
+                 }
+               }
+               this.setState({likes})
+        
   
-  likedPost = () => {
+           })
+      }
+ })
+}
+  
+   likedPost = async () => {
     var liked = this.state.liked;
-    var fill = "";
+  
     if(liked == true) {
-      fill = "currentColor";
       liked = false;
-      this.setState({fill})
-      this.setState({liked});
+      await  this.setState({liked});
+      await this.unlike();
+      this.changeLikeAndColor();
     }else {
       if(liked == false) {
         liked = true;
-        fill ="blue";
-        this.setState({fill})
-        this.setState({liked});
+        await this.setState({liked});
+        await  this.createLike();
+        this.changeLikeAndColor();
       }
-    }
   }
+    
+      }
+    
+  
+ async changeLikeAndColor() {
+    var liked = this.state.liked;
+    var fill = this.state.fill;
+    if(liked == true) {
+      fill = "blue";
+      await this.setState({fill})
+      await  this.setState({liked});
+    }else {
+      if(liked == false) {
+        fill ="currentColor";
+        await  this.setState({fill})
+        await this.setState({liked});
+      }
+  }
+}
 
-  loadLikePost = async () => {
-        
+unlike = async () => {
+  let email = localStorage.getItem('username');
+  let password = localStorage.getItem('password');
+  const url ="http://207.148.74.251:8080/api/postliking/delete/"+this.state.idLiking;
+  fetch(url, {
+     method: 'POST',
+     headers: new Headers({
+       'Accept': 'application/json',
+       'Content-Type': 'application/json; charset=UTF-8',
+       'Authorization': 'Basic ' + btoa(email +':'+password),
+     }),
+    }).then(response => {
+      if(response.ok) {
+          var liked = false;
+          this.setState({liked});
+          this.initialPost();
+    
+      }
+    })
+}
+
+  createLike = async () => {
     let email = localStorage.getItem('username');
     let password = localStorage.getItem('password');
-    const url ="http://207.148.74.251:8080/api/postliking/all/post/"+this.state.postId;
+    const url ="http://207.148.74.251:8080/api/postliking/create/"+this.props.dataFooter.id;
     fetch(url, {
-       method: 'GET',
+       method: 'POST',
        headers: new Headers({
          'Accept': 'application/json',
          'Content-Type': 'application/json; charset=UTF-8',
          'Authorization': 'Basic ' + btoa(email +':'+password),
        }),
       
-   }).then(response => response.json())
-     .then(json => {
-         
-        console.log(json);
-       
-     })
+   }).then(response => {
+       if(response.ok) {
+         var liked = true;
+          this.setState({liked})
+          this.initialPost();
+     
+       }
+   })  
  }
 
 
- createLiked = () => {
 
- }
     render() {
+      var liked = this.state.liked;
+      var likes = this.state.likes;
+      var userName = this.state.user.displayName;
+      
+       function showLikes() {
+        var showLikes ="";
+             if(liked == false && likes == 0) {
+              return showLikes;
+            }
+            if(liked == false && likes > 0) {
+              showLikes = likes;
+              return showLikes;
+            }
+            if(liked == true && likes == 0) {
+              showLikes = userName;
+              return showLikes;
+            }
+            if(liked == true && likes > 0) {
+              showLikes = "You and "+ likes+" others"
+              return showLikes;
+            }
+ 
+       }
+       var show = showLikes();
     
-
       
         return (
           <div>
+
+<div className="flex items-center space-x-3">
+                  <div className="flex items-center">
+                    {this.state.liked == true || this.state.likes > 0 ? 
+                      <img src="assets/images/liked.svg" alt="" className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900" />      
+                    :""}
+                  
+                  </div>
+                  <div className="dark:text-gray-100">
+                   {show}
+                  </div>
+                </div>
+                <hr></hr>
             <div className="flex space-x-4 lg:font-bold">
             <a  onClick={this.likedPost}  className="flex items-center space-x-2">
               <div className="p-2 rounded-full text-black">
@@ -95,16 +210,7 @@ class OperatePost extends Component {
               <div> Share</div>
             </a>
           </div>
-                  <div className="flex items-center space-x-3">
-                  <div className="flex items-center">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900" />
-                    <img src="assets/images/avatars/avatar-4.jpg" alt="" className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2" />
-                    <img src="assets/images/avatars/avatar-2.jpg" alt="" className="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2" />
-                  </div>
-                  <div className="dark:text-gray-100">
-                     {this.state.liked == true ?  <strong> You </strong>:""} and <strong> 209 Others </strong>
-                  </div>
-                </div>
+                
                 </div>
         );
     }

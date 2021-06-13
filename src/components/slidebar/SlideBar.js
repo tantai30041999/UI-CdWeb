@@ -14,23 +14,23 @@ class SlideBar extends Component {
       constructor(props) {
           super(props) 
           this.state  = {
-            userInfo : "",
+            userInfo :  JSON.parse(localStorage.getItem('userInf')),
           }
       }
-checkLogin = () => {
-  if(localStorage.getItem('username') == null && localStorage.getItem('password') == null) {
-    return false;
-  }else {
-    var userInf =  JSON.parse(localStorage.getItem('userInf'));
-    this.setState({userInf});
-    return true;
-  }
+// checkLogin = () => {
+//   if(localStorage.getItem('username') == null && localStorage.getItem('password') == null) {
+//     return false;
+//   }else {
+//     var userInf = );
+//     this.setState({userInf});
+//     return true;
+//   }
  
-}
+// }
   render() {
-    if(this.checkLogin() == false) {
-      return <Redirect to="/home"></Redirect>
-    }else {
+    // if(this.checkLogin() == false) {
+    //   return <Redirect to="/home"></Redirect>
+    // }else {
           
     return (
       <div className="sidebar">
@@ -155,6 +155,6 @@ checkLogin = () => {
     }
 
   }
-}
+
 
 export default SlideBar;
