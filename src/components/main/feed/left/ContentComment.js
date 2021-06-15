@@ -1,3 +1,4 @@
+import { data } from 'jquery';
 import React, { Component } from 'react';
 import ItemComment from './ItemComment';
 
@@ -20,20 +21,59 @@ class ContentComment extends Component {
     this.loadComment();
 
   }
-  handleKeyPress(event) {
-    // if(event.key ==="Shift" && event.key==="Enter") {
-    //     var content = this.state.content;
-    //     content +="\n";
-    //     this.setState({content});
-    // }
+  async handleKeyPress(event) {
+    var content = event.target.value;
     if (event.key === 'Enter') {
-      console.log(this.state.content)
-
+      if(content != "") {
+        if(this.isEmpty(content) == false) {
+          await this.setState({
+            [event.target.name]: event.target.value.trim()
+          })
+          var data = {
+            "content": this.state.content
+          }
+          var contentComment = JSON.stringify(data);
+         await this.createComment(contentComment);  
+        
+        }
+      }
     }
   }
+async createComment (content) {
+  let email = localStorage.getItem('username');
+  let password = localStorage.getItem('password');
+  var postedId = this.props.dataFooter.id;
+
+  const url = "http://207.148.74.251:8080/api/comment/create/" + postedId;
+  fetch(url, {
+    method: 'POST',
+    headers: new Headers({
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Basic ' + btoa(email + ':' + password),
+    }),
+    body : content
+
+  }).then(response => {
+    if (response.ok) {
+      console.log(response.status)
+        this.setState({content:""})
+        this.loadComment();
+    }
+  })
+
+
+}
+  isEmpty (str) {
+    var length = str.length;
+    for(var i = 0; i < length; i++) {
+        if(str[i] !=" ") {
+           return false; 
+        }
+    }
+    return true;
+  }
   async handleInputComment(event) {
-
-
     await this.setState({
       [event.target.name]: event.target.value
     })
@@ -99,7 +139,7 @@ class ContentComment extends Component {
         for (let i = 0; i < size; i++) {
           commentViews.push(<ItemComment key={i} comment={listData[i]} removeComment={removeComment}/>);
         }
-        return commentViews;
+        return commentViews.reverse();
       }
 
     }
@@ -112,7 +152,7 @@ class ContentComment extends Component {
         </div>
         <br></br>
         <div className="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800">
-          <input type="text" name="content" onInput={this.handleInputComment} onKeyPress={this.handleKeyPress} placeholder="Write your Comment.." className="bg-transparent max-h-10 shadow-none" />
+          <input type="text" name="content" onInput={this.handleInputComment} onKeyPress={this.handleKeyPress} value={this.state.content} placeholder="Write your Comment.." className="bg-transparent max-h-10 shadow-none" />
           <div className="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
             <a href="#"> <i className="uil-image" /></a>
             <a href="#"> <i className="uil-video" /></a>

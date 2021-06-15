@@ -306,7 +306,7 @@ class RegisterForm extends Component {
 
 
       var tmp = JSON.stringify(data);
-      console.log(tmp);
+    
       if (tmp.length > 0) {
         this.addNewUser(tmp);
         this.setState({

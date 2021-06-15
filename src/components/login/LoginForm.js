@@ -51,7 +51,7 @@ class LoginForm extends Component {
       }),
     }).then(response =>   {
       
-       console.log(response.status)
+     
       if(response.ok) {
             var login = true;
             this.setState({login}) 
