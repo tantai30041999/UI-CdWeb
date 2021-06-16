@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Catagory from './explore/Catagory';
 import ItemStoryMain from './explore/ItemStoryMain';
 import ItemStoryV5 from './explore/ItemStoryV5';
-// import Header from '../header/Header';
+import Header from '../header/Header';
 import Load from './Load';
 import SlideBar from '../slidebar/SlideBar';
 class ExploreMain extends Component {
@@ -12,9 +12,9 @@ class ExploreMain extends Component {
 
       <div>
         <div id="wrapper">
-          <SlideBar />
+        <SlideBar language = {this.props.language} />
           <div className="main_content">
-          {/* <Header/> */}
+          <Header  getLanguage={this.props.getLanguage}/>
             <div className="container m-auto">
               <h1 className="lg:lg:text-2xl text-lg text-lg font-extrabold leading-none text-gray-900 tracking-tight mt-3"> Explore </h1>
 

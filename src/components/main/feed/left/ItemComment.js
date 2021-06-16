@@ -121,14 +121,12 @@ showModal (status) {
 }
 
     render() {
- 
+      var language = this.props.language;
       
     
     
  
         return (
-      
-         
           <div  onMouseEnter={this.onMouseEnterDivComment} onMouseLeave={this.onMouseLeaveDivComment}>
             <DelModal open={this.state.delComment}  modalCallBack ={this.showModal} idComment={this.state.idComment} removeComment={this.props.removeComment}/>
             <div className="flex"  >
@@ -150,8 +148,8 @@ showModal (status) {
     
           <div       style={{display:this.state.hoverDivComment}}>
             <ul style={{width:"75%", margin:"auto"}}>
-              <li style={{float:"left", width:'10%', fontSize:'12px'}}><b><a name="edit" href="" style={{textDecoration: this.state.hoverEdit}} onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>Edit</a></b></li>
-              <li  style={{fontSize:'12px'}}><b><a name="delete" onClick={this.deleteComment}  style={{textDecoration:this.state.hoverDelete}}  onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>Delete</a></b></li>
+              <li style={{float:"left", width:'10%', fontSize:'12px'}}><b><a name="edit" href="" style={{textDecoration: this.state.hoverEdit}} onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>{language.editComment}</a></b></li>
+              <li  style={{fontSize:'12px'}}><b><a name="delete" onClick={this.deleteComment}  style={{textDecoration:this.state.hoverDelete}}  onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>{language.delComment}</a></b></li>
             </ul>
 
 

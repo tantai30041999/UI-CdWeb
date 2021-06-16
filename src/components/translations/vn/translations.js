@@ -6,5 +6,16 @@ export const TRANSLATIONS_VN = {
     settings :"Cài đặt",
     profile :"Trang cá nhân",
     logout :"Đăng xuất",
+    post :"Bài viết",
+    following :"Đã theo dõi",
+    followers :"Người theo dõi",
+    like :"Thích",
+    comment :"Bình luận",
+    share :"Chia sẻ",
+    writeComment :"Viết bình luận công khai...",
+    and :"Bạn và ",
+    others :" người khác",
+    editComment :"Sửa",
+    delComment :"Xóa",
 
 }

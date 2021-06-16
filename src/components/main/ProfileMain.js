@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import InfoCommon from './profile/InfoCommon';
 import ListHighStory from './profile/ListHighStory';
 import ListExplore from './trending/ListExplore';
-// import Header from '../header/Header';
+import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
 class ProfileMain extends Component {
   render() {
     return (
 
       <div id="wrapper">
-        <SlideBar />
+        <SlideBar language = {this.props.language} />
         <div className="main_content">
-          {/* <Header /> */}
+        <Header  getLanguage={this.props.getLanguage}/>
           <div className="container pro-container m-auto">
             {/* profile-cover*/}
             <InfoCommon />

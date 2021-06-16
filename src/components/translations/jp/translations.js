@@ -6,5 +6,16 @@ export const TRANSLATIONS_JP = {
     settings :"セッティング",
     profile :"プロフィール",
     logout :"ログアウト",
+    post :"ポスト",
+    following :"後追い",
+    followers :"フォロワー",
+    like :"ライク",
+    comment :"コメント",
+    share :"シェア",
+    writeComment :"コメントを書いてください...",
+    and :"キミ そして ",
+    others :" その他",
+    editComment :"編集",
+    delComment :"削除",
 
 }

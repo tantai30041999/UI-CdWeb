@@ -130,14 +130,19 @@ async createComment (content) {
  
     var removeComment = this.deleteComment;
     var listData = this.state.comments;
-    var viewComment = showViewComment(listData);
+    var language = this.props.language;
+    var viewComment = showViewComment(listData, language);
+ 
+ 
 
-    function showViewComment(listData) {
+
+    function showViewComment(listData, language) {
+ 
       var commentViews = [];
       var size = listData.length;
       if (size > 0) {
         for (let i = 0; i < size; i++) {
-          commentViews.push(<ItemComment key={i} comment={listData[i]} removeComment={removeComment}/>);
+          commentViews.push(<ItemComment key={i} language={language} comment={listData[i]} removeComment={removeComment} />);
         }
         return commentViews.reverse();
       }
@@ -152,7 +157,7 @@ async createComment (content) {
         </div>
         <br></br>
         <div className="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800">
-          <input type="text" name="content" onInput={this.handleInputComment} onKeyPress={this.handleKeyPress} value={this.state.content} placeholder="Write your Comment.." className="bg-transparent max-h-10 shadow-none" />
+          <input type="text" name="content" onInput={this.handleInputComment} onKeyPress={this.handleKeyPress} value={this.state.content} placeholder={language.writeComment} className="bg-transparent max-h-10 shadow-none" />
           <div className="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
             <a href="#"> <i className="uil-image" /></a>
             <a href="#"> <i className="uil-video" /></a>

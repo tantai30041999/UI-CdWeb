@@ -5,7 +5,7 @@ import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
 import LoginForm from '../login/LoginForm';
 import { Redirect } from 'react-router';
-import * as i18n from '../translations/i18n';
+
 
 class FeedMain extends Component {
   constructor(props) {
@@ -15,17 +15,17 @@ class FeedMain extends Component {
       AllPost: [],
       idDelPost: "",
       updateComponent : false,
-      language : "",
+     
     }
 
     this.getPostById = this.getPostById.bind(this);
     this.updateAfterCreatePost = this.updateAfterCreatePost.bind(this);
-    this.getLanguageCode = this.getLanguageCode.bind(this);
+  
   }
 
   componentDidMount() {
     this.loadData();
-    this.initialLanguage();
+
     
   }
 
@@ -89,25 +89,8 @@ class FeedMain extends Component {
     return arrData;
   }
 
-   initialLanguage (){
-        this.setState({language: i18n.TRANSLATIONS_UK})
-   }
+ 
 
- async getLanguageCode (code) {
-    var language = "";
-    if(code == "Vietnamese") {
-         language = i18n.TRANSLATIONS_VN;
-    }
-    if(code =="English") {
-         language = i18n.TRANSLATIONS_UK;
-    }
-    if(code =="Japan") {
-         language = i18n.TRANSLATIONS_JP
-    }
-      await this.setState({language})
-
-
-  }
 
   render() {
 
@@ -122,15 +105,15 @@ class FeedMain extends Component {
           <div id="wrapper">
   
 
-            <SlideBar language = {this.state.language} />
+            <SlideBar language = {this.props.language} />
             <div className="main_content">
 
-              <Header  getLanguage={this.getLanguageCode}/>
+              <Header  getLanguage={this.props.getLanguage}/>
               <div className="container m-auto">
                 <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
                 <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
                   {/* left sidebar*/}
-                  <LeftFeed dataFromParent={dataPost}  updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.getPostById}  updateComponent={this.state.updateComponent}/>
+                  <LeftFeed language = {this.props.language} dataFromParent={dataPost}  updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.getPostById}  updateComponent={this.state.updateComponent}/>
   
                   {/* right sidebar*/}
                   <RightFeed />

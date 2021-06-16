@@ -20,9 +20,9 @@ class Post extends Component {
      
 
       <div className="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
-         <HeaderPost dataHeader= {data} updateData = {updateData} />
+         <HeaderPost dataHeader= {data} updateData = {updateData} language = {this.props.language}/>
          <BodyPost dataBody ={data} updateComponent= {updateComponent}/>
-         <FooterPost dataFooter ={data}/>
+         <FooterPost dataFooter ={data} language = {this.props.language}/>
       </div>
     );
 

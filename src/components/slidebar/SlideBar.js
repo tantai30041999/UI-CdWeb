@@ -62,19 +62,19 @@ class SlideBar extends Component {
             <div className="flex justify-around w-full items-center text-center uk-link-reset text-gray-800 mt-6">
               <div>
                 <a href="#">
-                  <strong>Post</strong>
+                  <strong>{language.post}</strong>
                   <div> 130</div>
                 </a>
               </div>
               <div>
                 <a href="#">
-                  <strong>Following</strong>
+                  <strong>{language.following}</strong>
                   <div> 1,230</div>
                 </a>
               </div>
               <div>
                 <a href="#">
-                  <strong>Followers</strong>
+                  <strong>{language.followers}</strong>
                   <div> 2,430</div>
                 </a>
               </div>

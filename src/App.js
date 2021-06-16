@@ -11,12 +11,44 @@ import TrendingMain from './components/main/TrendingMain';
 import ProfileMain from './components/main/ProfileMain';
 import ForgetPass from './components/login/ForgetPass';
 import CoverForget from './components/login/CoverForget';
+import React from 'react';
+import * as i18n from './components/translations/i18n';
 
-
-function App() {
+class App extends React.Component{
+    constructor(props) {
+        super(props)
+        this.state = {
+            language :"",
+        }
+        this.getLanguageCode = this.getLanguageCode.bind(this);
+    }
 
     
-    return (
+    componentDidMount() {
+        this.initialLanguage();
+    }
+    initialLanguage (){
+        this.setState({language: i18n.TRANSLATIONS_UK})
+   }
+ async getLanguageCode (code) {
+    var language = "";
+    if(code == "Vietnamese") {
+         language = i18n.TRANSLATIONS_VN;
+    }
+    if(code =="English") {
+         language = i18n.TRANSLATIONS_UK;
+    }
+    if(code =="Japan") {
+         language = i18n.TRANSLATIONS_JP
+    }
+      await this.setState({language})
+
+
+  }
+
+    render() {
+
+        return (
              
             <BrowserRouter>
                 <Switch>
@@ -38,32 +70,29 @@ function App() {
                         <CoverForget />
                     </Route>
                     <Route exact path="/feed">
-                        <FeedMain/>
+                        <FeedMain getLanguage={this.getLanguageCode} language={this.state.language}/>
                     </Route>
                     <Route  exact path="/explore">
-                        <ExploreMain/>
+                        <ExploreMain getLanguage={this.getLanguageCode} language={this.state.language}/>
                     </Route>
                     <Route  exact path="/messages">
-                        <MessageMain/>
+                        <MessageMain getLanguage={this.getLanguageCode} language={this.state.language}/>
                     </Route>
                     <Route exact path="/trending">
-                        <TrendingMain/>
+                        <TrendingMain getLanguage={this.getLanguageCode} language={this.state.language}/>
                     </Route>
                     <Route exact path="/profile">
-                        <ProfileMain/>
+                        <ProfileMain getLanguage={this.getLanguageCode} language={this.state.language}/>
                     </Route>
                    
                 </Switch>
             </BrowserRouter>
-   
-
-
-
-
-
 
 
     );
+
+    }
+  
 }
 
 export default App;

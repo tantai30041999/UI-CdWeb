@@ -21,8 +21,8 @@ class FooterPost extends Component {
        
         return (
             <div className="py-3 px-4 space-y-3">
-                <OperatePost dataFooter = {this.props.dataFooter}/>
-                <ContentComment dataFooter = {this.props.dataFooter}/>
+                <OperatePost dataFooter = {this.props.dataFooter} language={this.props.language}/>
+                <ContentComment dataFooter = {this.props.dataFooter} language={this.props.language}/>
              
           </div>
         );

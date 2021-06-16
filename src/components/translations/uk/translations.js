@@ -6,5 +6,16 @@ export const TRANSLATIONS_UK = {
     settings :"Settings",
     profile :"Profile",
     logout :"Logout",
+    post :"Post",
+    following :"Following",
+    followers :"Followers",
+    like :"Like",
+    comment :"Comment",
+    share :"Share",
+    writeComment :"Write your Comment...",
+    and :"You and ",
+    others :" others",
+    editComment :"Edit",
+    delComment :"Delete",
 
 }
