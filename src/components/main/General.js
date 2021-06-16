@@ -4,7 +4,7 @@ import InfoBasicForm from './setting/InfoBasicForm';
 import SettingOption from './setting/SettingOption';
 import Title from './setting/Title';
 import ContentPrivacy from './setting/ContentPrivacy';
-import Header from '../header/Header';
+// import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
 class General extends Component {
   render() {
@@ -12,7 +12,7 @@ class General extends Component {
       <div id="wrapper">
          <SlideBar/>
       <div className="main_content">
-        <Header />
+        {/* <Header /> */}
         <div className="container m-auto">
           <h1 className="text-2xl leading-none text-gray-900 tracking-tight mt-3"> Account Setting </h1>
           <SettingOption />

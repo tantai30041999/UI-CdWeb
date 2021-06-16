@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ImageCover from './ImageCover';
 import ImageRelative from './ImageRelative';
 import ImageSmall from './ImageSmall';
+
+import ImageCarousel from './ImageCarousel';
 class BodyPost extends Component {
  
     render() { 
@@ -24,14 +26,22 @@ class BodyPost extends Component {
       //      return imageViews;
       // }
 
+
         return (
+         
             <div uk-lightbox>
               <div class="p-3 border-b dark:border-gray-700">
                 {this.props.dataBody.caption}
 </div>
+
             <div className="grid grid-cols-2 gap-2 p-2">
+            
             <ImageCover updateComponent={updateComponent}  idImage = {this.props.dataBody.images[0]} />
+             {/* <ImageCarousel/> */}
+
      
+        
+            
             </div>
           </div>
         );
