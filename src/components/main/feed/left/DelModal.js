@@ -42,6 +42,7 @@ class DelModal extends Component {
 
      }
     render() {
+         var language = this.props.language;
          var open = this.props.open;
          if(this.state.open == true) {
             document.body.style.overflow = 'hidden';
@@ -58,20 +59,20 @@ class DelModal extends Component {
                         {/* post header*/}
                         <div >
                             <br></br>
-                            <h1 style={{ fontSize: '20px' }}><b>&nbsp;  &nbsp;Delete Comment</b></h1>
+                            <h1 style={{ fontSize: '20px' }}><b>&nbsp;  &nbsp;{language.titleDelComment}</b></h1>
                             <br></br>
                         </div>
                         <hr></hr>
                         <div className="story-content" data-simplebar="init">
-                            <p> &nbsp;  &nbsp; Are you sure you want to delete this comment?</p>
+                            <p> &nbsp;  &nbsp; {language.messagesDelComment}</p>
                         </div>
                         <div>
                             <ul style={{ margin: '0px', padding: '0px', overflow: 'hidden' }}>
-                                <li style={{ float: "right", marginRight: '15px', width: '12%' }}>
-                                    <button onClick={this.removeComment} style={{ display: 'block', backgroundColor: '#1877F2', width: '100%', padding: '8px', borderRadius: "5px", color: 'white' }}  ><b>Delete</b></button>
+                                <li style={{ float: "right", marginRight: '15px', width: '14%' }}>
+                                    <button onClick={this.removeComment} style={{ display: 'block', backgroundColor: '#1877F2', width: '100%', padding: '8px', borderRadius: "5px", color: 'white' }}  ><b>{language.confirmDelComment}</b></button>
                                 </li>
                                 <li style={{ float: "right", marginRight: '15px' }}>
-                                    <button onClick={this.closeModal} onMouseLeave={this.outHoverCancel} onMouseEnter={this.hoverCancel} style={{backgroundColor:this.state.cancelColor, display: 'block', width: '100%', padding: '8px', borderRadius: "5px", color: '#1877F2' }} ><b>Cancel</b></button>
+                                    <button onClick={this.closeModal} onMouseLeave={this.outHoverCancel} onMouseEnter={this.hoverCancel} style={{backgroundColor:this.state.cancelColor, display: 'block', width: '100%', padding: '8px', borderRadius: "5px", color: '#1877F2' }} ><b>{language.cancelDelComment}</b></button>
                                 </li>
                             </ul>
 

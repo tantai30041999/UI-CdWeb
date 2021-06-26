@@ -7,7 +7,7 @@ class Post extends Component {
   constructor(props) {
     super(props)
       this.state  = {
-        updateImage : false,
+      
       }
   }
 

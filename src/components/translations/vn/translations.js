@@ -17,5 +17,14 @@ export const TRANSLATIONS_VN = {
     others :" người khác",
     editComment :"Sửa",
     delComment :"Xóa",
+    confirmDelComment :"Xóa",
+    cancelDelComment :"Hủy",
+    titleDelComment :"Xóa bình luận",
+    messagesDelComment :"Bạn có chắc là bạn muốn xoá bình luận này không?",
+    titleCreatePost :"Tạo bài viết",
+    createPost :"Đăng",
+    privatePost :"Chỉ mình tôi",
+    publicPost :"Công khai",
+
 
 }

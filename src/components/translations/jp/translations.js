@@ -17,5 +17,13 @@ export const TRANSLATIONS_JP = {
     others :" その他",
     editComment :"編集",
     delComment :"削除",
+    confirmDelComment :"デリート",
+    cancelDelComment :"キャンセル",
+    titleDelComment :"コメントを削除",
+    messagesDelComment :"このコメントを削除してもよろしいですか？",
+    titleCreatePost :"投稿を作成する",
+    createPost :"ポスト",
+    privatePost :"民間",
+    publicPost :"パブリック",
 
 }

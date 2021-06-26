@@ -1,5 +1,6 @@
 import { data } from 'jquery';
 import React, { Component } from 'react';
+import EditComment from './EditComment';
 import ItemComment from './ItemComment';
 
 class ContentComment extends Component {
@@ -15,6 +16,7 @@ class ContentComment extends Component {
     this.handleInputComment = this.handleInputComment.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.deleteComment = this.deleteComment.bind(this);
+    this.updateComment = this.updateComment.bind(this);
   }
   componentDidMount() {
 
@@ -56,7 +58,7 @@ async createComment (content) {
 
   }).then(response => {
     if (response.ok) {
-      console.log(response.status)
+      // console.log(response.status)
         this.setState({content:""})
         this.loadComment();
     }
@@ -126,9 +128,36 @@ async createComment (content) {
     })
 
   }
+  async updateComment(idComment,content)  {
+    let email = localStorage.getItem('username');
+    let password = localStorage.getItem('password');
+  
+    var contentJSon = JSON.stringify(content);
+    const url = "http://207.148.74.251:8080/api/comment/update/" + idComment;
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Basic ' + btoa(email + ':' + password),
+      }),
+      body : contentJSon,
+
+    }).then(response => {
+      if (response.ok) {
+              
+       this.loadComment();
+
+      }
+    })
+
+
+
+  }
   render() {
  
     var removeComment = this.deleteComment;
+    var updateComment = this.updateComment;
     var listData = this.state.comments;
     var language = this.props.language;
     var viewComment = showViewComment(listData, language);
@@ -142,7 +171,7 @@ async createComment (content) {
       var size = listData.length;
       if (size > 0) {
         for (let i = 0; i < size; i++) {
-          commentViews.push(<ItemComment key={i} language={language} comment={listData[i]} removeComment={removeComment} />);
+          commentViews.push(<ItemComment key={i} language={language} comment={listData[i]} removeComment={removeComment} updateComment={updateComment} />);
         }
         return commentViews.reverse();
       }
@@ -154,7 +183,10 @@ async createComment (content) {
       <div>
         <div className="border-t pt-4 space-y-4 dark:border-gray-600">
           {viewComment}
+
         </div>
+        <br></br>
+      
         <br></br>
         <div className="bg-gray-100 bg-gray-100 rounded-full rounded-md relative dark:bg-gray-800">
           <input type="text" name="content" onInput={this.handleInputComment} onKeyPress={this.handleKeyPress} value={this.state.content} placeholder={language.writeComment} className="bg-transparent max-h-10 shadow-none" />

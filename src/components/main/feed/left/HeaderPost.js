@@ -19,6 +19,7 @@ class HeaderPost extends Component {
     render() {
       var userPosted = this.props.dataHeader;
       var user = JSON.parse(localStorage.getItem('userInf'));
+      
         return (
             <div className="flex justify-between items-center px-4 py-3">
             <div className="flex flex-1 items-center space-x-4">

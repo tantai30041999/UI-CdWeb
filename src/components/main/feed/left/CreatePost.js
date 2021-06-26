@@ -87,6 +87,7 @@ componentDidMount() {
             this.setState({posted_by_id});
             var login = true;
             this.setState({login})
+            
             var place = "What's on your mind, "+posted_by_id.displayName+"?";
             this.setState({place})
            }
@@ -203,13 +204,14 @@ componentDidMount() {
 
         
         var isListImage = false;
-        var login = this.state.login;
+        // var login = this.state.login;
         // if(login == false) {
         //     return <Redirect to="/home"></Redirect>
         // }
         if (this.state.images.length > 0) {
             isListImage = true;
         }
+        var language = this.props.language;
 
 
 
@@ -249,7 +251,7 @@ componentDidMount() {
                             {/* post header*/}
                             <div >
                                 <br></br>
-                                <h1 style={{ textAlign: 'center', fontSize: '20px' }}><b>Create Post</b></h1>
+                                <h1 style={{ textAlign: 'center', fontSize: '20px' }}><b>{language.titleCreatePost}</b></h1>
                                 <br></br>
                             </div>
                             <hr></hr>
@@ -266,9 +268,9 @@ componentDidMount() {
                                     </a>
 
                                     <span className="block text-lg font-semibold">{this.state.posted_by_id.displayName}</span>
-                                    <select onChange={this.handleStatePost} id="statePost" style={{ width: '100px', height: '30px' }}>
-                                           <option value="true"selected>Public</option>
-                                           <option value="false">Private</option>
+                                    <select onChange={this.handleStatePost} id="statePost" style={{ width: '110px', height: '30px' }}>
+                                           <option value="true"selected>{language.publicPost}</option>
+                                           <option value="false">{language.privatePost}</option>
                                     </select>
                                 </div>
                                 <br></br>
@@ -299,7 +301,7 @@ componentDidMount() {
                             </div>
                             </div></div>
                             <div style={{ textAlign: 'center' }}>
-                             <button id="submitPost"  onClick={this.loadFeedPost} style={{ width: '95%', backgroundColor: this.state.colorButton, margin: '0 auto', color: this.state.color, borderRadius: '5px', height: '40px' }} ><b>Post</b></button>
+                             <button id="submitPost"  onClick={this.loadFeedPost} style={{ width: '95%', backgroundColor: this.state.colorButton, margin: '0 auto', color: this.state.color, borderRadius: '5px', height: '40px' }} ><b>{language.createPost}</b></button>
                             </div>
                             <br></br>
                         </div>

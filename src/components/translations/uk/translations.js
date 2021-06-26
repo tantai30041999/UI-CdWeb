@@ -17,5 +17,14 @@ export const TRANSLATIONS_UK = {
     others :" others",
     editComment :"Edit",
     delComment :"Delete",
+    confirmDelComment :"Delete",
+    cancelDelComment :"Cancel",
+    titleDelComment :"Delete Comment",
+    messagesDelComment :"Are you sure you want to delete this comment?",
+    titleCreatePost :"Create Post",
+    createPost :"Post",
+    privatePost :"Private",
+    publicPost :"Public",
+
 
 }
