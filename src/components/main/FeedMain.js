@@ -20,6 +20,7 @@ class FeedMain extends Component {
 
     this.getPostById = this.getPostById.bind(this);
     this.updateAfterCreatePost = this.updateAfterCreatePost.bind(this);
+    this.exitUpdateComponent = this.exitUpdateComponent.bind(this);
   
   }
 
@@ -57,13 +58,19 @@ class FeedMain extends Component {
 
   }
 
-  async updateAfterCreatePost(status) {
-       var updateComponent = status;
-       await this.setState({updateComponent});
-       await this.loadData();
+   updateAfterCreatePost() {   
+        this.loadData();
+        var updateComponent = true;
+         this.setState({updateComponent}); 
+  }
+  exitUpdateComponent() {
+    var updateComponent = false;
+    this.setState({updateComponent});
+  
   }
 
   deletedPost = async () => {
+   
     const url = "http://207.148.74.251:8080/api/post/delete/" + this.state.idDelPost;
     fetch(url, {
       method: 'POST',
@@ -74,12 +81,15 @@ class FeedMain extends Component {
       })
     }).then(response => {
       if (response.status == 200) {
-         
-         this.loadData();    
+        this.loadData(); 
+        var updateComponent = true;
+        this.setState({updateComponent}); 
+      
       }
     })
-    var updateComponent = true;
-    this.setState({updateComponent})
+
+  
+   
   }
   convertArray(jsonData) {
     var arrData = [];
@@ -100,6 +110,7 @@ class FeedMain extends Component {
       return <Redirect to="/home"></Redirect>
     }else {
       var dataPost = this.state.AllPost;
+      // if(this.state.updateComponent)
       return (
         <div>
           <div id="wrapper">
@@ -113,7 +124,7 @@ class FeedMain extends Component {
                 <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
                 <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
                   {/* left sidebar*/}
-                  <LeftFeed language = {this.props.language} dataFromParent={dataPost}  updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.getPostById}  updateComponent={this.state.updateComponent}/>
+                  <LeftFeed language = {this.props.language} dataFromParent={dataPost} exitUpdateComponent={this.exitUpdateComponent} updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.getPostById}  updateComponent={this.state.updateComponent}/>
   
                   {/* right sidebar*/}
                   <RightFeed />

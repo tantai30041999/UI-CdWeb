@@ -14,6 +14,7 @@ class Post extends Component {
   render() {
     var data = this.props.dataPost;
     var updateComponent = this.props.updateComponent;
+    var exitUpdateComponent = this.props.exitUpdateComponent;
     var updateData = this.props.updateData;
   
     return (
@@ -21,7 +22,7 @@ class Post extends Component {
 
       <div className="bg-white shadow rounded-md dark:bg-gray-900 -mx-2 lg:mx-0">
          <HeaderPost dataHeader= {data} updateData = {updateData} language = {this.props.language}/>
-         <BodyPost dataBody ={data} updateComponent= {updateComponent}/>
+         <BodyPost dataBody ={data} updateComponent= {updateComponent} exitUpdateComponent = {exitUpdateComponent}/>
          <FooterPost dataFooter ={data} language = {this.props.language}/>
       </div>
     );

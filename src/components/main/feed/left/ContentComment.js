@@ -160,6 +160,7 @@ async createComment (content) {
     var updateComment = this.updateComment;
     var listData = this.state.comments;
     var language = this.props.language;
+ 
     var viewComment = showViewComment(listData, language);
  
  

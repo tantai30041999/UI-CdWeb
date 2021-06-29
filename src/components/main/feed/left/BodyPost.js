@@ -8,6 +8,7 @@ class BodyPost extends Component {
  
     render() { 
       var updateComponent = this.props.updateComponent;
+      var exitUpdateComponent = this.props.exitUpdateComponent;
       // var image = ;
       // var images_Post = showImage(images);
       
@@ -36,7 +37,7 @@ class BodyPost extends Component {
 
             <div className="grid grid-cols-2 gap-2 p-2">
             
-            <ImageCover updateComponent={updateComponent}  idImage = {this.props.dataBody.images[0]} />
+            <ImageCover updateComponent={updateComponent} exitUpdateComponent ={exitUpdateComponent} idImage = {this.props.dataBody.images[0]} />
              {/* <ImageCarousel/> */}
 
      

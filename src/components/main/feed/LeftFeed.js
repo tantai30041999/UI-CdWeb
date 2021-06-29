@@ -25,10 +25,11 @@ class LeftFeed extends Component {
     render() {
         var uploadData = this.props.updatePost;
         var updateComponent = this.props.updateComponent;
+        var exitUpdateComponent = this.props.exitUpdateComponent;
         var language = this.props.language;
         var listPost = [];
         listPost = this.state.data.map(function (item, index) {
-            return <Post key={index} dataPost={item} updateData={uploadData} updateComponent={updateComponent} language ={language}/>
+            return <Post key={index} dataPost={item} updateData={uploadData} exitUpdateComponent={exitUpdateComponent} updateComponent={updateComponent} language ={language}/>
         })
         return (
 
@@ -36,7 +37,7 @@ class LeftFeed extends Component {
 
              
 
-                <CreatePost updateAfterCreatePost={this.props.updateAfterCreatePost} updateComponent={updateComponent} language = {this.props.language}/>
+                <CreatePost   updateAfterCreatePost={this.props.updateAfterCreatePost} updateComponent={updateComponent} language = {this.props.language}/>
 
                 {listPost}
 

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 
 
 var sqlDatetime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000).toJSON().slice(0, 19).replace('T', ' ');
-var initialState = {
+const initialState = {
     id: "",
     caption :"",
     create_at: sqlDatetime.substring(0, 10),
@@ -52,47 +52,26 @@ class CreatePost extends Component {
         this.loadFeedPost = this.loadFeedPost.bind(this);
 
     }
-componentDidMount() {
-    let email = localStorage.getItem('username');
-    let password = localStorage.getItem('password');
-      this.getUser(email,password);
+ async componentDidMount() {
+   
+   await this.getUser();
 }
+
 
  loadFeedPost = async (e) => {
     e.preventDefault();
     await this.uploadFiles();
-    this.props.updateAfterCreatePost(true);
-
-    $('#story-modal').hide();
-    this.setState({initialState})
-    
+    await  this.setState(initialState);
+    this.getUser();
+    $('#story-modal').hide();   
 }
 // get user current
-   getUser = (email, password) => {
-    const url ="http://207.148.74.251:8080/api/user/current";
-    fetch(url, {
-       method: 'GET',
-       headers: new Headers({
-         'Accept': 'application/json',
-         'Content-Type': 'application/json; charset=UTF-8',
-         'Authorization': 'Basic ' + btoa(email +':'+password),
-       }),
-      
-   }).then(response => response.json())
-     .then(json => {
-           if(json.status == 401) {
-                   this.state.login = false;
-           }else {
-            var posted_by_id = json;
-            this.setState({posted_by_id});
-            var login = true;
-            this.setState({login})
-            
-            var place = "What's on your mind, "+posted_by_id.displayName+"?";
-            this.setState({place})
-           }
-       
-     })
+   getUser = async () => {
+       const userInf = JSON.parse(localStorage.getItem('userInf'));
+       var posted_by_id = userInf;
+     await  this.setState({posted_by_id});
+       var place = "What's on your mind, "+userInf.displayName+"?";
+    await   this.setState({place});
    }
     handleStatePost = async () => {
         var public_post =  await $('#statePost').find(":selected").val();
@@ -108,13 +87,20 @@ componentDidMount() {
           'Authorization': 'Basic ' + btoa(localStorage.getItem('username')+":"+localStorage.getItem('password')),
         }),
         body : data
-    }).then(response => response.json())
-      .then(json => console.log(json))
+    }).then(response => {
+        if(response.ok) {
+            this.props.updateAfterCreatePost();
+        }
+    })
+     
     
 }
     async handleChange(event) {
         var tag = event.target.name;
         var valueCaption = event.target.value;
+        await this.setState({
+            [event.target.name]: event.target.value
+          }) 
         if(tag =="caption") {
             if( valueCaption != "") {
               
@@ -134,14 +120,15 @@ componentDidMount() {
 
             }
         }
-        console.log(this.state.isdisabled)
-        await this.setState({
-            [event.target.name]: event.target.value
-          }) 
+       
+      
    
     }
 
     removeAllImage = () => {
+        $('#addFile').val('');
+        this.fileArray = [];
+        this.fileObj = [];
         var images = [];
         this.setState({ images })
     }
@@ -159,7 +146,8 @@ componentDidMount() {
         return this.images.push(image);
     }
    async uploadFiles() {
-
+    const userInf = JSON.parse(localStorage.getItem('userInf'));
+    var posted_by_id = userInf;
     if(this.state.isdisabled == false) {
         var data = {
             id: null,
@@ -168,12 +156,10 @@ componentDidMount() {
             deleteAt:null,
             images: this.state.images,
             publicPost : this.state.public_post,
-            postedBy : this.state.posted_by_id,
-           
-
-    
+            postedBy : posted_by_id,
         }
         var json = JSON.stringify(data);
+
         this.createPost(json);
     }  
     }
@@ -193,15 +179,21 @@ componentDidMount() {
         }
     }
     showModal() {
+        this.setState(initialState);
         $('#story-modal').show();
     }
-    hideModal() {
-        $('#story-modal').hide();
-    }
+    hideModal(e) {
+        e.preventDefault();
+        this.setState(initialState);
+        this.getUser()
+    
+    $('#story-modal').hide();
+}
+
 
 
     render() {
-
+    //    this.getUser();
         
         var isListImage = false;
         // var login = this.state.login;
@@ -212,6 +204,7 @@ componentDidMount() {
             isListImage = true;
         }
         var language = this.props.language;
+     
 
 
 
@@ -274,13 +267,13 @@ componentDidMount() {
                                     </select>
                                 </div>
                                 <br></br>
-                                <textarea name="caption"  onChange={this.handleChange} rows={4} cols={50} defaultValue={""} style={{ resize: 'none' }} />
+                                <textarea name="caption"  onChange={this.handleChange} rows={4} cols={50} value={this.state.caption} style={{ resize: 'none' }} />
                                 <div className="py-4 ">
                                     <div className="flex justify-around">
 
                                         <div className="flex space-x-4 lg:font-bold">
 
-                                            <input type="file" id="addFile" onChange={this.uploadMultipleFiles} classname="bg-white py-2 px-4 rounded shadow" multiple />
+                                            <input type="file" id="addFile" onChange={this.uploadMultipleFiles} classname="bg-white py-2 px-4 rounded shadow"  />
 
 
                                         </div>
