@@ -34,13 +34,8 @@ class LeftFeed extends Component {
         return (
 
             <div className="space-y-5 flex-shrink-0 lg:w-7/12">
-
-             
-
                 <CreatePost   updateAfterCreatePost={this.props.updateAfterCreatePost} updateComponent={updateComponent} language = {this.props.language}/>
-
                 {listPost}
-
                 <Load />
                 <PostHiden />
                 <LoadHiden />

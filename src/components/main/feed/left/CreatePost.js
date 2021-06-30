@@ -193,7 +193,7 @@ class CreatePost extends Component {
 
 
     render() {
-    //    this.getUser();
+
         
         var isListImage = false;
         // var login = this.state.login;

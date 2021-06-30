@@ -13,7 +13,6 @@ class ImageCover extends Component {
     }
 
     componentDidMount() {
-
         this.getImage();
         this.props.exitUpdateComponent();
 
@@ -55,16 +54,10 @@ class ImageCover extends Component {
 
 
     render() {
-        // var src = this.state.srcImage;
         var update = this.props.updateComponent;
-
-
         if (update == true) {
             this.getImage();
         }
-
-
-
 
         return (
 

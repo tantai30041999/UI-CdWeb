@@ -21,6 +21,7 @@ class ContentComment extends Component {
   componentDidMount() {
 
     this.loadComment();
+    this.props.exitUpdateComponent();
 
   }
   async handleKeyPress(event) {
@@ -160,10 +161,12 @@ async createComment (content) {
     var updateComment = this.updateComment;
     var listData = this.state.comments;
     var language = this.props.language;
- 
+    var update = this.props.updateComponent;
     var viewComment = showViewComment(listData, language);
  
- 
+   if(update == true) {
+     this.loadComment();
+   }
 
 
     function showViewComment(listData, language) {

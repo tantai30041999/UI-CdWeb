@@ -25,9 +25,7 @@ class FeedMain extends Component {
   }
 
   componentDidMount() {
-    this.loadData();
-
-    
+    this.loadData();  
   }
 
   async loadData() {
@@ -98,10 +96,6 @@ class FeedMain extends Component {
     }
     return arrData;
   }
-
- 
-
-
   render() {
 
       

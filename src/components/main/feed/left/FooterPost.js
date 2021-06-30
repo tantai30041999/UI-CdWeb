@@ -22,7 +22,7 @@ class FooterPost extends Component {
         return (
             <div className="py-3 px-4 space-y-3">
                 <OperatePost dataFooter = {this.props.dataFooter} language={this.props.language}/>
-                <ContentComment dataFooter = {this.props.dataFooter}  language={this.props.language}/>
+                <ContentComment  updateComponent= {this.props.updateComponent} exitUpdateComponent = {this.props.exitUpdateComponent} dataFooter = {this.props.dataFooter}  language={this.props.language}/>
              
           </div>
         );
