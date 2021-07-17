@@ -78,7 +78,7 @@ class CreatePost extends Component {
         this.setState({public_post});  
     }
    createPost =(data) => {
-     const url ="http://207.148.74.251:8080/api/post/create";
+     const url ="https://istg-clone.herokuapp.com/api/post/create";
      fetch(url, {
         method: 'POST',
         headers: new Headers({
@@ -88,10 +88,13 @@ class CreatePost extends Component {
         }),
         body : data
     }).then(response => {
+  
         if(response.ok) {
             this.props.updateAfterCreatePost();
         }
+      
     })
+  
      
     
 }
@@ -168,9 +171,8 @@ class CreatePost extends Component {
         reader.readAsDataURL(file);
          reader.onload = () => {
             var images = this.state.images.slice();
-            var array = reader.result.split(',');
-            images.push(array[1]);
-           
+            var array = reader.result;
+            images.push(array);
             this.setState({images});
          }
       
@@ -183,6 +185,7 @@ class CreatePost extends Component {
         $('#story-modal').show();
     }
     hideModal(e) {
+        this.removeAllImage();
         e.preventDefault();
         this.setState(initialState);
         this.getUser()

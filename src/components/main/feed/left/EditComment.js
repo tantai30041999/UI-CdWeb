@@ -20,9 +20,7 @@ class EditComment extends Component {
         this.updateComment = this.updateComment.bind(this);
     }
       componentDidMount() {
- 
-         this.getContent();
-       
+         this.getContent();   
     }
  
 
@@ -63,7 +61,8 @@ class EditComment extends Component {
         })
     }
 
-    updateComment = () => {
+     updateComment = async () => {
+
         var idComment = this.props.idComment;
         var content = this.state.content;
         if(content =="") {
@@ -72,21 +71,13 @@ class EditComment extends Component {
         var json = {
             "content" : content,
         }
-        this.props.updateComment(idComment,json);
-        this.closeModal();
+       await  this.props.updateComment(idComment,json);
+        // this.closeModal();
 
     }
     render() {
         var open = this.props.open;
-        // var content = this.props.content;
-        // console.log(content);
-        //  function setContent(content) {
-        //      console.log(content);
-        //  }
-        // setContent(content);
 
-        
- 
         if(this.state.open == true) {
            document.body.style.overflow = 'hidden';
        }

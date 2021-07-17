@@ -236,12 +236,12 @@ class RegisterForm extends Component {
   }
   async checkExistEmail(email) {
 
-    const url = "http://207.148.74.251:8080/nonauth/api/emailexisted?email=" + email;
+    const url = "https://istg-clone.herokuapp.com/nonauth/api/emailexisted?email=" + email;
     let data = await fetch(url, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json;',
-        'Authorization': 'Basic ' + btoa('admin:taibong123'),
+        'Authorization': 'Basic ' + btoa('email@example.com:ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
       }),
     });
 
@@ -263,13 +263,14 @@ class RegisterForm extends Component {
 
 
   addNewUser(data) {
-    const url = "http://207.148.74.251:8080/api/user/create";
+    console.log(data);
+    const url = "https://istg-clone.herokuapp.com/api/user/create";
     fetch(url, {
       method: 'POST',
       headers: new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Basic ' + btoa('admin:taibong123'),
+        'Authorization': 'Basic ' + btoa('email@example.com:ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
       }),
       body: data
 
@@ -329,7 +330,7 @@ class RegisterForm extends Component {
     
       <div id="wrapper">
         
-      {(signUp == false) ? 
+      {/* {(signUp == false) ?  */}
       
       <div>
       <HeaderStart/>
@@ -374,32 +375,32 @@ class RegisterForm extends Component {
 
       </div>
 
-      :
+      // :
    
-      <div>
-        <HeaderSuccess/>
-        <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-          <h1 className="lg:text-3xl text-xl font-semibold mb-6"> Success!</h1>
-          <p className="mb-2 text-black text-lg"> You have successfully registered an account.</p>
-          <form  >
-            <div className="flex lg:flex-row flex-col lg:space-x-2">
+      // <div>
+      //   <HeaderSuccess/>
+      //   <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+      //     <h1 className="lg:text-3xl text-xl font-semibold mb-6"> Success!</h1>
+      //     <p className="mb-2 text-black text-lg"> You have successfully registered an account.</p>
+      //     <form  >
+      //       <div className="flex lg:flex-row flex-col lg:space-x-2">
             
-            </div>
+      //       </div>
 
            
-            <div className="flex justify-start my-4 space-x-1">
-              <div className="checkbox">
+      //       <div className="flex justify-start my-4 space-x-1">
+      //         <div className="checkbox">
                
-              </div>
+      //         </div>
             
-            </div>
-            <a  href="/home" style={{textAlign:'center'}} type="button" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login now</a>
+      //       </div>
+      //       <a  href="/home" style={{textAlign:'center'}} type="button" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login now</a>
         
-          </form>
-        </div>
-      </div>
+      //     </form>
+      //   </div>
+      // </div>
       
-      }
+      {/* } */}
       
      
       </div>

@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
+import DelPost from '../../DelPost';
 
 class HeaderPost extends Component {
       constructor(props) {
         super(props)  
         this.state = {
+          open : false,
           
         }
         this.deletePost = this.deletePost.bind(this);
+        this.closeModal = this.closeModal.bind(this);
       }
 
    deletePost =  (e) => { 
     e.preventDefault();
-    var idPost = this.props.dataHeader.id;
-    this.props.updateData(idPost);
+
+    var open = true;
+    this.setState({open});
+    // this.props.updateData(idPost);
           
   }
+  closeModal() {
+    var open  = false;
+    this.setState({open});
+  }
+
 
     render() {
       var userPosted = this.props.dataHeader;
@@ -58,13 +68,14 @@ class HeaderPost extends Component {
                
                      <a  onClick = {this.deletePost} className="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
                        <i className="uil-trash-alt mr-1" />  Delete
-                               </a>
+                     </a>
                    </li>
                   
                   : ""}
                
                 </ul>
               </div>
+              <DelPost idPost={ this.props.dataHeader.id} open ={this.state.open} close={this.closeModal} updateData={this.props.updateData} language={this.props.language}/>
             </div>
           </div>
         );

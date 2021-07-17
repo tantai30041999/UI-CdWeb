@@ -25,6 +25,8 @@ export const TRANSLATIONS_UK = {
     createPost :"Post",
     privatePost :"Private",
     publicPost :"Public",
+    titleDelPost :"Delete Post",
+    messagesDelPost :"Are you sure you want to delete this post?",
 
 
 }

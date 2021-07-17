@@ -24,7 +24,7 @@ class ImageCover extends Component {
         let password = localStorage.getItem('password');
         var idImage = this.props.idImage;
 
-        const url = "http://207.148.74.251:8080/nonauth/api/image/" + idImage;
+        const url = "https://istg-clone.herokuapp.com/nonauth/api/image/" + idImage;
 
         await fetch(url, {
             method: 'GET',

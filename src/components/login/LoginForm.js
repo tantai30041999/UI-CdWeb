@@ -21,8 +21,8 @@ class LoginForm extends Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
 
   }
- getInfUser = (email,password)=> {
-   const url ="http://207.148.74.251:8080/api/user/current";
+ getInfUser = async (email,password)=> {
+   const url ="https://istg-clone.herokuapp.com/api/user/current";
    fetch(url, {
     method: 'GET',
     headers: new Headers({
@@ -35,10 +35,11 @@ class LoginForm extends Component {
                var userInf = json;
                
                 localStorage.setItem('userInf',JSON.stringify(userInf));
+                console.log(userInf);
              })
 }
   login = () => {
-    const url = "http://207.148.74.251:8080/api/user/login";  
+    const url = "https://istg-clone.herokuapp.com/api/user/login";  
     var header = new Headers();
     var encode = sha256(this.state.password);
     fetch(url, {
@@ -57,7 +58,8 @@ class LoginForm extends Component {
             this.setState({login}) 
              localStorage.setItem('username', this.state.email);
              localStorage.setItem('password', encode);
-             this.getInfUser(this.state.email, encode);         
+             this.getInfUser(this.state.email, encode);  
+                 
       }else {
         if(response.status == 401) {
              var login = false;

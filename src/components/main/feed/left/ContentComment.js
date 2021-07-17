@@ -10,6 +10,7 @@ class ContentComment extends Component {
       id: null,
       content: "",
       comments: [],
+      rerender :false,
     
 
     }
@@ -47,7 +48,7 @@ async createComment (content) {
   let password = localStorage.getItem('password');
   var postedId = this.props.dataFooter.id;
 
-  const url = "http://207.148.74.251:8080/api/comment/create/" + postedId;
+  const url = "https://istg-clone.herokuapp.com/api/comment/create/" + postedId;
   fetch(url, {
     method: 'POST',
     headers: new Headers({
@@ -83,11 +84,12 @@ async createComment (content) {
 
   }
   loadComment = async () => {
+  
     let email = localStorage.getItem('username');
     let password = localStorage.getItem('password');
 
     var postedId = this.props.dataFooter.id;
-    const url = "http://207.148.74.251:8080/api/comment/all/post/" + postedId;
+    const url = "https://istg-clone.herokuapp.com/api/comment/all/post/" + postedId;
     fetch(url, {
       method: 'GET',
       headers: new Headers({
@@ -100,7 +102,9 @@ async createComment (content) {
       if (response.ok) {
         response.json().then(json => {
           var comments = json;
+          console.log(comments);
           this.setState({ comments });
+          console.log(this.state.comments);
          
         })
       }
@@ -111,7 +115,7 @@ async createComment (content) {
  async deleteComment (postedId) {
     let email = localStorage.getItem('username');
     let password = localStorage.getItem('password');
-    const url = "http://207.148.74.251:8080/api/comment/delete/" + postedId;
+    const url = "https://istg-clone.herokuapp.com/api/comment/delete/" + postedId;
     fetch(url, {
       method: 'POST',
       headers: new Headers({
@@ -122,20 +126,23 @@ async createComment (content) {
 
     }).then(response => {
       if (response.ok) {
-              
+     
        this.loadComment();
+       
 
       }
     })
 
   }
-  async updateComment(idComment,content)  {
+  async updateCommentAsync(idComment,content) {
+      
     let email = localStorage.getItem('username');
     let password = localStorage.getItem('password');
   
     var contentJSon = JSON.stringify(content);
-    const url = "http://207.148.74.251:8080/api/comment/update/" + idComment;
-    fetch(url, {
+    console.log(contentJSon);
+    const url = "https://istg-clone.herokuapp.com/api/comment/update/" + idComment;
+     fetch(url, {
       method: 'POST',
       headers: new Headers({
         'Accept': 'application/json',
@@ -146,27 +153,61 @@ async createComment (content) {
 
     }).then(response => {
       if (response.ok) {
-              
+       
        this.loadComment();
-
+      // console.log("Abc");
+      
       }
     })
-
-
-
   }
+  
+  async updateComment(idComment,content)  {
+  
+    // let email = localStorage.getItem('username');
+    // let password = localStorage.getItem('password');
+  
+    // var contentJSon = JSON.stringify(content);
+    // console.log(contentJSon);
+    // const url = "http://207.148.74.251:8080/api/comment/update/" + idComment;
+    //  fetch(url, {
+    //   method: 'POST',
+    //   headers: new Headers({
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //     'Authorization': 'Basic ' + btoa(email + ':' + password),
+    //   }),
+    //   body : contentJSon,
+
+    // }).then(response => {
+    //   if (response.ok) {
+              
+    //     this.setState({a:'1'});
+    //    this.loadComment();
+    //    console.log(this.state);
+    //   }
+    // })
+    await this.updateCommentAsync(idComment,content);
+    // await this.loadComment();
+   
+  }
+
+  
   render() {
  
     var removeComment = this.deleteComment;
     var updateComment = this.updateComment;
-    var listData = this.state.comments;
+
     var language = this.props.language;
     var update = this.props.updateComponent;
-    var viewComment = showViewComment(listData, language);
- 
-   if(update == true) {
-     this.loadComment();
-   }
+  
+    var listData = this.state.comments;
+    console.log(listData);
+  //  if(update == true) {
+  //    this.loadComment();
+  //    listData = this.state.comments;
+  //  }
+  
+   var viewComment = showViewComment(listData, language);
 
 
     function showViewComment(listData, language) {

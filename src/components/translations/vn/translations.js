@@ -25,6 +25,8 @@ export const TRANSLATIONS_VN = {
     createPost :"Đăng",
     privatePost :"Chỉ mình tôi",
     publicPost :"Công khai",
+    titleDelPost :"Xoá bài viết",
+    messagesDelPost :"Bạn có chắc là muốn xóa bài viết này không?",
 
 
 }

@@ -47,7 +47,7 @@ class ItemComment extends Component {
   }
   async updateComment(event) {
     event.preventDefault();
-    this.loadComment();
+  await  this.loadComment();
     var openEditModal = true;
     var editComment = true;
     await this.setState({ openEditModal });
@@ -148,7 +148,7 @@ class ItemComment extends Component {
   render() {
     var language = this.props.language;
     var openEditModal = this.state.openEditModal;
-
+ 
 
 
     return (

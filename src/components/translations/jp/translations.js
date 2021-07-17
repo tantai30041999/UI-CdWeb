@@ -25,5 +25,7 @@ export const TRANSLATIONS_JP = {
     createPost :"ポスト",
     privatePost :"民間",
     publicPost :"パブリック",
+    titleDelPost :"投稿を削除する",
+    messagesDelPost :"この投稿を削除してもよろしいですか？",
 
 }
