@@ -8,8 +8,8 @@ class RightFeed extends Component {
 
         
             <div className="lg:w-5/12">
-                <SuggestionUser/>
-                <Latest/>
+                <SuggestionUser language = {this.props.language}/>
+                <Latest language = {this.props.language}/>
         
             </div>
           );

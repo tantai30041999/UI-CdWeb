@@ -15,19 +15,19 @@ class TrendingMain extends Component {
         <Header  getLanguage={this.props.getLanguage}/>
         <div className="container m-auto">
           <div className="flex justify-between items-baseline lg:mr-8  uk-visible@s">
-            <h1 className="font-extrabold leading-none mb-6 lg:text-2xl text-lg text-gray-900 tracking-tight"> Stories </h1>
+            <h1 className="font-extrabold leading-none mb-6 lg:text-2xl text-lg text-gray-900 tracking-tight"> {this.props.language.stories} </h1>
             <a href="#" className="text-blue-400 hover:text-blue-500"> See all</a>
           </div>
           {/* users*/}
           <ListStory />
           <div className="flex justify-between items-baseline uk-visible@s">
-            <h1 className="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight"> Suggestion
+            <h1 className="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight"> {this.props.language.suggestion}
                 </h1>
             <a href="#" className="text-blue-400 hover:text-blue-500"> See all</a>
           </div>
           {/* Suggestion*/}
           <ListSuggestion />
-          <h1 className="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight"> Explore </h1>
+          <h1 className="font-extrabold leading-none mb-6 mt-8 lg:text-2xl text-lg text-gray-900 tracking-tight"> {this.props.language.explore} </h1>
           {/* Explore*/}
           <ListExplore />
         </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class ItemSuggestion extends Component {
     render() {
+          var language = this.props.language;
         return (
             <div className="flex items-center justify-between py-3">
             <div className="flex flex-1 items-center space-x-4">
@@ -13,7 +14,7 @@ class ItemSuggestion extends Component {
                 <span className="block capitalize text-sm"> Australia </span>
               </div>
             </div>
-            <a href="#" className="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 dark:border-gray-800"> Follow </a>
+            <a href="#" className="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 dark:border-gray-800"> {language.follow} </a>
           </div>
         );
     }

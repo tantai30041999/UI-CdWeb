@@ -2,6 +2,8 @@ export const TRANSLATIONS_JP = {
     feed : "フィード",
     explore : "探る",
     messages :"メッセージ",
+    stories :"話",
+    suggestion :"提案",
     trending :"トレンド",
     settings :"セッティング",
     profile :"プロフィール",
@@ -27,5 +29,10 @@ export const TRANSLATIONS_JP = {
     publicPost :"パブリック",
     titleDelPost :"投稿を削除する",
     messagesDelPost :"この投稿を削除してもよろしいですか？",
+    whoTofollow :"フォローする人",
+    refresh : "更新",
+    follow :"従う",
+    latest :"最新",
+    seeAll : "すべてを見る"
 
 }

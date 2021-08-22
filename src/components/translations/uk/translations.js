@@ -1,6 +1,8 @@
 export const TRANSLATIONS_UK = {
     feed : "Feed",
     explore : "Explore",
+    stories :"Stories",
+    suggestion :"Suggestion",
     messages :"Messages",
     trending :"Trending",
     settings :"Settings",
@@ -27,6 +29,10 @@ export const TRANSLATIONS_UK = {
     publicPost :"Public",
     titleDelPost :"Delete Post",
     messagesDelPost :"Are you sure you want to delete this post?",
-
+    whoTofollow :"Who to follow",
+    refresh : "Refresh",
+    follow :"Follow",
+    latest :"Latest",
+    seeAll : "See all"
 
 }

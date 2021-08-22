@@ -26,7 +26,7 @@ componentDidMount() {
     let password = localStorage.getItem('password');
 
     
-     const url ="http://207.148.74.251:8080/api/postliking/all/post/"+this.props.dataFooter.id;
+     const url ="https://istg-clone.herokuapp.com/api/postliking/all/post/"+this.props.dataFooter.id;
      fetch(url, {
         method: 'GET',
         headers: new Headers({
@@ -102,7 +102,7 @@ componentDidMount() {
 unlike = async () => {
   let email = localStorage.getItem('username');
   let password = localStorage.getItem('password');
-  const url ="http://207.148.74.251:8080/api/postliking/delete/"+this.state.idLiking;
+  const url ="https://istg-clone.herokuapp.com/api/postliking/delete/"+this.state.idLiking;
   fetch(url, {
      method: 'POST',
      headers: new Headers({
@@ -123,7 +123,7 @@ unlike = async () => {
   createLike = async () => {
     let email = localStorage.getItem('username');
     let password = localStorage.getItem('password');
-    const url ="http://207.148.74.251:8080/api/postliking/create/"+this.props.dataFooter.id;
+    const url ="https://istg-clone.herokuapp.com/api/postliking/create/"+this.props.dataFooter.id;
     fetch(url, {
        method: 'POST',
        headers: new Headers({

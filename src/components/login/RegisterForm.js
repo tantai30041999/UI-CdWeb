@@ -323,14 +323,14 @@ class RegisterForm extends Component {
     var existed = this.state.err_sameEmail;
    
 
-    // if (signUp == true) {
-    //   return <Redirect to="/login" />
-    // }
+    if (signUp == true) {
+      return <Redirect to="/login" />
+    }
     return (
     
       <div id="wrapper">
         
-      {/* {(signUp == false) ?  */}
+      {(signUp == false) ? 
       
       <div>
       <HeaderStart/>
@@ -375,32 +375,32 @@ class RegisterForm extends Component {
 
       </div>
 
-      // :
+      :
    
-      // <div>
-      //   <HeaderSuccess/>
-      //   <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
-      //     <h1 className="lg:text-3xl text-xl font-semibold mb-6"> Success!</h1>
-      //     <p className="mb-2 text-black text-lg"> You have successfully registered an account.</p>
-      //     <form  >
-      //       <div className="flex lg:flex-row flex-col lg:space-x-2">
+      <div>
+        <HeaderSuccess/>
+        <div className="lg:p-12 max-w-md max-w-xl lg:my-0 my-12 mx-auto p-6 space-y-">
+          <h1 className="lg:text-3xl text-xl font-semibold mb-6"> Success!</h1>
+          <p className="mb-2 text-black text-lg"> You have successfully registered an account.</p>
+          <form  >
+            <div className="flex lg:flex-row flex-col lg:space-x-2">
             
-      //       </div>
+            </div>
 
            
-      //       <div className="flex justify-start my-4 space-x-1">
-      //         <div className="checkbox">
+            <div className="flex justify-start my-4 space-x-1">
+              <div className="checkbox">
                
-      //         </div>
+              </div>
             
-      //       </div>
-      //       <a  href="/home" style={{textAlign:'center'}} type="button" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login now</a>
+            </div>
+            <a  href="/home" style={{textAlign:'center'}} type="button" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login now</a>
         
-      //     </form>
-      //   </div>
-      // </div>
+          </form>
+        </div>
+      </div>
       
-      {/* } */}
+       } 
       
      
       </div>

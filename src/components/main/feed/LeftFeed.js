@@ -18,11 +18,7 @@ class LeftFeed extends Component {
     
      await   this.setState({ data })
     }
-    // componentDidUpdate(preProps) {
-    //     if (preProps.dataFromParent != this.props.dataFromParent) {
-    //         this.setState({ data: this.props.dataFromParent })
-    //     }
-    // }
+
     render() {
         var uploadData = this.props.updatePost;
         var updateComponent = this.props.updateComponent;

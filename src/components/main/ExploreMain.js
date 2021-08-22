@@ -5,18 +5,20 @@ import ItemStoryV5 from './explore/ItemStoryV5';
 import Header from '../header/Header';
 import Load from './Load';
 import SlideBar from '../slidebar/SlideBar';
+import { Label } from 'reactstrap';
+import Language from '../header/Language';
 class ExploreMain extends Component {
   render() {
-
+    var language = this.props.language;
     return (
-
+        
       <div>
         <div id="wrapper">
-        <SlideBar language = {this.props.language} />
+        <SlideBar language = {language} />
           <div className="main_content">
-          <Header  getLanguage={this.props.getLanguage}/>
+          <Header  getLanguage={language}/>
             <div className="container m-auto">
-              <h1 className="lg:lg:text-2xl text-lg text-lg font-extrabold leading-none text-gray-900 tracking-tight mt-3"> Explore </h1>
+              <h1 className="lg:lg:text-2xl text-lg text-lg font-extrabold leading-none text-gray-900 tracking-tight mt-3"> {language.explore} </h1>
 
               {/*Catogory*/}
               <Catagory />

@@ -1,6 +1,8 @@
 export const TRANSLATIONS_VN = {
     feed : "Bản tin",
     explore : "Khám phá",
+    stories :"Stories",
+    suggestion :"Đề xuất",
     messages :"Tin nhắn",
     trending :"Thịnh hành",
     settings :"Cài đặt",
@@ -27,6 +29,12 @@ export const TRANSLATIONS_VN = {
     publicPost :"Công khai",
     titleDelPost :"Xoá bài viết",
     messagesDelPost :"Bạn có chắc là muốn xóa bài viết này không?",
+    whoTofollow :"Những người nổi bật",
+    refresh : "Làm mới",
+    follow :"Theo dõi",
+    latest :"Gần đây",
+    seeAll : "Xem tất cả"
+
 
 
 }

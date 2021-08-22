@@ -34,6 +34,7 @@ class LoginForm extends Component {
              .then(json => {
                var userInf = json;
                
+                // localStorage.clear();
                 localStorage.setItem('userInf',JSON.stringify(userInf));
                 console.log(userInf);
              })

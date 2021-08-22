@@ -95,13 +95,13 @@ class FeedMain extends Component {
 
               <Header  getLanguage={this.props.getLanguage}/>
               <div className="container m-auto">
-                <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>
+                <h1 className="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> {this.props.language.feed} </h1>
                 <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
                   {/* left sidebar*/}
                   <LeftFeed language = {this.props.language} dataFromParent={dataPost} exitUpdateComponent={this.exitUpdateComponent} updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.loadDataAfterDelPost}  updateComponent={this.state.updateComponent}/>
   
                   {/* right sidebar*/}
-                  <RightFeed />
+                  <RightFeed language = {this.props.language}/>
                 </div>
               </div>
             </div>

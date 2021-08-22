@@ -4,12 +4,13 @@ import CoverImageV2 from './CoverImageV2';
 
 class Latest extends Component {
     render() {
+      var language = this.props.language;
         return (
             <div className="mt-5" uk-sticky="offset:28; bottom:true ; media @m">
             <div className="bg-white dark:bg-gray-900 shadow-md rounded-md overflow-hidden">
               <div className="bg-gray-50 border-b border-gray-100 flex items-baseline justify-between py-4 px-6 dark:bg-gray-800 dark:border-gray-700">
-                <h2 className="font-semibold text-lg">Latest</h2>
-                <a href="explore.html"> See all</a>
+                <h2 className="font-semibold text-lg">{language.latest}</h2>
+                <a href="explore.html"> {language.seeAll}</a>
               </div>
               <div className="grid grid-cols-2 gap-2 p-3 uk-link-reset">
                 <CoverImageV1/>
