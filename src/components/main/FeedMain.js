@@ -24,6 +24,7 @@ class FeedMain extends Component {
   }
 
   componentDidMount() {
+
     this.loadData(); 
    
   }

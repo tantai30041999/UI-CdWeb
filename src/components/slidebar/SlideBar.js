@@ -17,24 +17,17 @@ class SlideBar extends Component {
             userInfo :  JSON.parse(localStorage.getItem('userInf')),
            
           }
+          this.clearData = this.clearData.bind(this);
+      
       }
 
-  
+ clearData() {
+    window.localStorage.clear();
 
-// checkLogin = () => {
-//   if(localStorage.getItem('username') == null && localStorage.getItem('password') == null) {
-//     return false;
-//   }else {
-//     var userInf = );
-//     this.setState({userInf});
-//     return true;
-//   }
- 
-// }
+}
+
   render() {
-    // if(this.checkLogin() == false) {
-    //   return <Redirect to="/home"></Redirect>
-    // }else {
+
    
      var language = this.props.language;
       
@@ -83,7 +76,7 @@ class SlideBar extends Component {
           <hr className="-mx-4 -mt-1 uk-visible@s" />
           <ul>
             <li className="active">
-              <Link to="/feed">
+              <Link to="/feed" >
                 
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -146,7 +139,7 @@ class SlideBar extends Component {
               <hr className="my-2" />
             </li>
             <li>
-               <Link to="/">
+               <Link to="/" onClick={this.clearData}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>

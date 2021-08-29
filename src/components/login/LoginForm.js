@@ -19,10 +19,12 @@ class LoginForm extends Component {
     this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
+   
 
   }
  getInfUser = async (email,password)=> {
    const url ="https://istg-clone.herokuapp.com/api/user/current";
+  
    fetch(url, {
     method: 'GET',
     headers: new Headers({
@@ -33,10 +35,8 @@ class LoginForm extends Component {
    }).then(response => response.json())
              .then(json => {
                var userInf = json;
-               
-                // localStorage.clear();
                 localStorage.setItem('userInf',JSON.stringify(userInf));
-                console.log(userInf);
+               
              })
 }
   login = () => {
@@ -57,8 +57,9 @@ class LoginForm extends Component {
       if(response.ok) {
             var login = true;
             this.setState({login}) 
+           
              localStorage.setItem('username', this.state.email);
-             localStorage.setItem('password', encode);
+            localStorage.setItem('password', encode);
              this.getInfUser(this.state.email, encode);  
                  
       }else {
@@ -130,7 +131,7 @@ class LoginForm extends Component {
     var login = this.state.login;
     if(login == true) {
      
-      return <Redirect to="/feed"></Redirect>
+      return <Redirect to="/feed" ></Redirect>
     }
     return (
      

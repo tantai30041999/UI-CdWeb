@@ -5,9 +5,13 @@ import ListSuggestion from './trending/ListSuggestion';
 import StoryModal from './trending/StoryModal';
 import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
+import { Redirect } from 'react-router';
 class TrendingMain extends Component {
   render() {
-    return (
+    if(localStorage.getItem('username') == null && localStorage.getItem('password') == null) {
+      return <Redirect to="/home"></Redirect>}
+    else {
+      return (
      
         <div id="wrapper">
                 <SlideBar language = {this.props.language} />
@@ -35,6 +39,8 @@ class TrendingMain extends Component {
         </div>
      
     );
+    }
+  
   }
 }
 

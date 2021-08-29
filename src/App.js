@@ -13,43 +13,47 @@ import ForgetPass from './components/login/ForgetPass';
 import CoverForget from './components/login/CoverForget';
 import React from 'react';
 import * as i18n from './components/translations/i18n';
+import Success from './components/login/Success';
 
-class App extends React.Component{
+class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            language :"",
+            language: "",
         }
         this.getLanguageCode = this.getLanguageCode.bind(this);
     }
 
-    
+
     componentDidMount() {
         this.initialLanguage();
     }
-    initialLanguage (){
-        this.setState({language: i18n.TRANSLATIONS_UK})
-   }
- async getLanguageCode (code) {
-    var language = "";
-    if(code == "Vietnamese") {
-         language = i18n.TRANSLATIONS_VN;
+    initialLanguage() {
+        this.setState({ language: i18n.TRANSLATIONS_UK })
     }
-    if(code =="English") {
-         language = i18n.TRANSLATIONS_UK;
-    }
-    if(code =="Japan") {
-         language = i18n.TRANSLATIONS_JP
-    }
-      await this.setState({language})
+    async getLanguageCode(code) {
+        var language = "";
+        if (code == "Vietnamese") {
+            language = i18n.TRANSLATIONS_VN;
+        }
+        if (code == "English") {
+            language = i18n.TRANSLATIONS_UK;
+        }
+        if (code == "Japan") {
+            language = i18n.TRANSLATIONS_JP
+        }
+        await this.setState({ language })
 
 
-  }
+    }
+
 
     render() {
+     
 
         return (
-             
+
+
             <BrowserRouter>
                 <Switch>
 
@@ -62,37 +66,40 @@ class App extends React.Component{
                     <Route exact path="/register">
                         <RegisterForm />
                     </Route>
+                    <Route exact path="/success">
 
+                        <Success />
+                    </Route>
                     <Route exact path="/forget">
                         <ForgetPass />
                     </Route>
                     <Route exact path="/coverforget">
                         <CoverForget />
                     </Route>
-                    <Route exact path="/feed">
-                        <FeedMain getLanguage={this.getLanguageCode} language={this.state.language}/>
+                    <Route exact path="/feed"   >
+                         <FeedMain getLanguage={this.getLanguageCode} language={this.state.language} />  
                     </Route>
-                    <Route  exact path="/explore">
-                        <ExploreMain getLanguage={this.getLanguageCode} language={this.state.language}/>
+                    <Route exact path="/explore">
+                        <ExploreMain getLanguage={this.getLanguageCode} language={this.state.language} />
                     </Route>
-                    <Route  exact path="/messages">
-                        <MessageMain getLanguage={this.getLanguageCode} language={this.state.language}/>
+                    <Route exact path="/messages">
+                        <MessageMain getLanguage={this.getLanguageCode} language={this.state.language} />
                     </Route>
                     <Route exact path="/trending">
-                        <TrendingMain getLanguage={this.getLanguageCode} language={this.state.language}/>
+                        <TrendingMain getLanguage={this.getLanguageCode} language={this.state.language} />
                     </Route>
                     <Route exact path="/profile">
-                        <ProfileMain getLanguage={this.getLanguageCode} language={this.state.language}/>
+                        <ProfileMain getLanguage={this.getLanguageCode} language={this.state.language} />
                     </Route>
-                   
+
                 </Switch>
             </BrowserRouter>
 
 
-    );
+        );
 
     }
-  
+
 }
 
 export default App;
