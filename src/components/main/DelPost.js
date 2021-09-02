@@ -14,7 +14,6 @@ class DelPost extends Component {
         this.removePost = this.removePost.bind(this);
 
     }
-
     closeModal = () => {
         this.props.close();
         $('#story-modal').hide();
@@ -43,7 +42,7 @@ class DelPost extends Component {
 
     }
     async delPost(idPost) {
-        const url = "http://207.148.74.251:8080/api/post/delete/" + idPost;
+        const url = "https://istg-clone.herokuapp.com/api/post/delete/" + idPost;
         fetch(url, {
             method: 'POST',
             headers: new Headers({

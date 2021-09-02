@@ -12,6 +12,7 @@ class Header extends Component {
          }
       
   render() {
+ 
 
 
     return (
@@ -30,7 +31,7 @@ class Header extends Component {
             <i className="uil-bars" />
           </div>
           <div className="header_search">
-            <input type="text" placeholder="Search.." />
+            <input type="text" placeholder="Search..." />
             <div className="icon-search">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -244,7 +245,7 @@ class Header extends Component {
           </div>
           {/* profile */}
           <a href="#">
-            <img src="assets/images/avatars/avatar-2.jpg" className="header-avatar" alt="" />
+            <img src="assets/images/germany.png" className="header-avatar" alt="" />
           </a>
             <Option getLanguage={this.props.getLanguage}/>
         </div>

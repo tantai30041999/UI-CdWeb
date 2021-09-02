@@ -33,6 +33,8 @@ export const TRANSLATIONS_UK = {
     refresh : "Refresh",
     follow :"Follow",
     latest :"Latest",
-    seeAll : "See all"
+    seeAll : "See all",
+    search : "Search..",
+    upload : "Upload"
 
 }

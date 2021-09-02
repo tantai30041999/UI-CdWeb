@@ -28,8 +28,8 @@ class App extends React.Component {
     componentDidMount() {
         this.initialLanguage();
     }
-    initialLanguage() {
-        this.setState({ language: i18n.TRANSLATIONS_UK })
+   async initialLanguage() {
+      await  this.setState({ language: i18n.TRANSLATIONS_UK })
     }
     async getLanguageCode(code) {
         var language = "";

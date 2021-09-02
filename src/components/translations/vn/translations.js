@@ -33,7 +33,9 @@ export const TRANSLATIONS_VN = {
     refresh : "Làm mới",
     follow :"Theo dõi",
     latest :"Gần đây",
-    seeAll : "Xem tất cả"
+    seeAll : "Xem tất cả",
+    search : "Tìm kiếm..",
+    upload : "Tải file"
 
 
 

@@ -33,6 +33,8 @@ export const TRANSLATIONS_JP = {
     refresh : "更新",
     follow :"従う",
     latest :"最新",
-    seeAll : "すべてを見る"
+    seeAll : "すべてを見る",
+    search : "探す..",
+    upload : "アップロード"
 
 }
