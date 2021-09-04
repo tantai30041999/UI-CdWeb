@@ -199,10 +199,7 @@ class CreatePost extends Component {
 
         
         var isListImage = false;
-        // var login = this.state.login;
-        // if(login == false) {
-        //     return <Redirect to="/home"></Redirect>
-        // }
+    
         if (this.state.images.length > 0) {
             isListImage = true;
         }

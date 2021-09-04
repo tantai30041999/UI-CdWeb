@@ -33,15 +33,14 @@ class DelPost extends Component {
             cancelColor: ''
         })
     }
-    removePost = () => {
+    removePost = async () => {
         var idPost = this.props.idPost;
-        
-      
-        this.delPost(idPost);
-         this.closeModal();
+        await this.delPost(idPost);
+        this.closeModal();
 
     }
-    async delPost(idPost) {
+     delPost(idPost) {
+
         const url = "https://istg-clone.herokuapp.com/api/post/delete/" + idPost;
         fetch(url, {
             method: 'POST',
@@ -51,11 +50,14 @@ class DelPost extends Component {
                 'Authorization': 'Basic ' + btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'))
             })
         }).then(response => {
+           
             if (response.status == 200) {
+                
               this.props.updateData();
            
 
             }
+         
         })
     }
     render() {

@@ -17,7 +17,7 @@ class HeaderPost extends Component {
 
     var open = true;
     this.setState({open});
-    // this.props.updateData(idPost);
+    
           
   }
   closeModal() {

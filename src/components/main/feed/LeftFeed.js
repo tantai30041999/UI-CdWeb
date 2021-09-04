@@ -26,9 +26,7 @@ class LeftFeed extends Component {
         var language = this.props.language;
         var listPost = [];
         var data = this.props.dataFromParent;
-        // if(updateComponent == true) {
-        //     data = this.props.dataFromParent;
-        // }
+    
         listPost = data.map(function (item, index) {
             return <Post key={index} dataPost={item} updateData ={uploadData} exitUpdateComponent={exitUpdateComponent} updateComponent={updateComponent} language ={language}/>
         })

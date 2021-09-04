@@ -5,7 +5,7 @@ import Header from '../header/Header';
 import SlideBar from '../slidebar/SlideBar';
 import LoginForm from '../login/LoginForm';
 import { Redirect } from 'react-router';
-
+import Spinner from 'react-bootstrap/Spinner';
 
 class FeedMain extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class FeedMain extends Component {
     this.state = {
       AllPost: [],
       updateComponent : false,
+     
      
     }
 
@@ -33,7 +34,7 @@ class FeedMain extends Component {
 
     let username = localStorage.getItem('username');
     let password = localStorage.getItem('password');
-
+    var AllPost;
     const url = "https://istg-clone.herokuapp.com/api/post/all";
     fetch(url, {
       method: 'GET',
@@ -46,21 +47,23 @@ class FeedMain extends Component {
       .then(response => response.json())
       .then(json => {
         
-        var AllPost = this.convertArray(json).reverse();
+        AllPost = this.convertArray(json).reverse();
        
         this.setState({ AllPost });
       })
-
+     
   }
   async loadDataAfterDelPost() {
-    await this.loadData();
+     this.loadData();
+     var updateComponent = true;
+     await  this.setState({updateComponent}); 
   }
 
 
-   updateAfterCreatePost() {   
+   async updateAfterCreatePost() {   
         this.loadData();
         var updateComponent = true;
-         this.setState({updateComponent}); 
+        await  this.setState({updateComponent}); 
   }
   exitUpdateComponent() {
     var updateComponent = false;
@@ -77,6 +80,7 @@ class FeedMain extends Component {
     return arrData;
   }
   render() {
+  
 
       
     
@@ -84,7 +88,10 @@ class FeedMain extends Component {
       return <Redirect to="/home"></Redirect>
     }else {
       var dataPost = this.state.AllPost;
-    
+      if(this.state.updateComponent ) {
+        dataPost =  this.state.AllPost;
+      }
+
 
       return (
         <div>
@@ -100,8 +107,8 @@ class FeedMain extends Component {
                 <div className="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
                   {/* left sidebar*/}
                   <LeftFeed language = {this.props.language} dataFromParent={dataPost} exitUpdateComponent={this.exitUpdateComponent} updateAfterCreatePost={this.updateAfterCreatePost} updatePost={this.loadDataAfterDelPost}  updateComponent={this.state.updateComponent}/>
-  
-                  {/* right sidebar*/}
+               
+   {/* right sidebar*/}
                   <RightFeed language = {this.props.language}/>
                 </div>
               </div>

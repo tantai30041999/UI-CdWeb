@@ -8,6 +8,7 @@ import SlideBar from '../slidebar/SlideBar';
 import { Label } from 'reactstrap';
 import Language from '../header/Language';
 import { Redirect } from 'react-router';
+
 class ExploreMain extends Component {
   render() {
     var language = this.props.language;
@@ -24,7 +25,7 @@ class ExploreMain extends Component {
             <Header  getLanguage={language}/>
               <div className="container m-auto">
                 <h1 className="lg:lg:text-2xl text-lg text-lg font-extrabold leading-none text-gray-900 tracking-tight mt-3"> {language.explore} </h1>
-  
+              
                 {/*Catogory*/}
                 <Catagory />
                 <div className="grid lg:grid-cols-4 grid-cols-2 gap-2 hover:text-yellow-700 uk-link-reset">

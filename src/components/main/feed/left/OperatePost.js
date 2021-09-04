@@ -149,6 +149,11 @@ unlike = async () => {
       var likes = this.state.likes;
       var userName = this.state.user.displayName;
       var language = this.props.language;
+      var updateComponent = this.props.updateComponent;
+      if(updateComponent == true) {
+        this.initialPost();
+       
+      }
       
        function showLikes() {
         var showLikes ="";

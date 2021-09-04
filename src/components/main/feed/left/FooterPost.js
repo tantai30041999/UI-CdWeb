@@ -13,15 +13,14 @@ class FooterPost extends Component {
      }
      componentDidMount() {
          var data = this.props.dataFooter;
-         var postId = data.id;
-         var userId = data.postedBy.id;          
+               
      }
     render() {
      
        
         return (
             <div className="py-3 px-4 space-y-3">
-                <OperatePost dataFooter = {this.props.dataFooter} language={this.props.language}/>
+                <OperatePost dataFooter = {this.props.dataFooter} language={this.props.language}  updateComponent= {this.props.updateComponent}/>
                 <ContentComment  updateComponent= {this.props.updateComponent} exitUpdateComponent = {this.props.exitUpdateComponent} dataFooter = {this.props.dataFooter}  language={this.props.language}/>
              
           </div>
