@@ -35,6 +35,9 @@ export const TRANSLATIONS_UK = {
     latest :"Latest",
     seeAll : "See all",
     search : "Search..",
-    upload : "Upload"
+    upload : "Upload",
+    discomment : "Disable comments",
+    addfavorite :"Add favorites",
+    deletepost : "Delete",
 
 }

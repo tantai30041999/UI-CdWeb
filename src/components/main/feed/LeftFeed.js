@@ -36,8 +36,8 @@ class LeftFeed extends Component {
                 <CreatePost   updateAfterCreatePost={this.props.updateAfterCreatePost}  updateComponent={updateComponent} language = {this.props.language}/>
                 {listPost}
                 <Load />
-                <PostHiden />
-                <LoadHiden />
+                {/* <PostHiden /> */}
+                {/* <LoadHiden /> */}
 
 
             </div>

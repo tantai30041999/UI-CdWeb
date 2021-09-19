@@ -35,7 +35,10 @@ export const TRANSLATIONS_VN = {
     latest :"Gần đây",
     seeAll : "Xem tất cả",
     search : "Tìm kiếm..",
-    upload : "Tải file"
+    upload : "Tải file",
+    discomment : "Chặn bình luận",
+    addfavorite :" Yêu thích",
+    deletepost : "Xóa bài đăng",
 
 
 

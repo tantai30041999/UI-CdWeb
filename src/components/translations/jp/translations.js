@@ -35,6 +35,9 @@ export const TRANSLATIONS_JP = {
     latest :"最新",
     seeAll : "すべてを見る",
     search : "探す..",
-    upload : "アップロード"
+    upload : "アップロード",
+    discomment : "コメントを無効にする",
+    addfavorite :"お気に入りを追加",
+    deletepost : "消去",
 
 }

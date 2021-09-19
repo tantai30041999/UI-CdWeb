@@ -29,6 +29,7 @@ class HeaderPost extends Component {
     render() {
       var userPosted = this.props.dataHeader;
       var user = JSON.parse(localStorage.getItem('userInf'));
+      var language = this.props.language;
       
         return (
             <div className="flex justify-between items-center px-4 py-3">
@@ -46,18 +47,18 @@ class HeaderPost extends Component {
                 <ul className="space-y-1">
                   <li>
                     <a href="#" className="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                      <i className="uil-share-alt mr-1" /> Share
+                      <i className="uil-share-alt mr-1" />  {language.share}
                               </a>
                   </li>
                
                   <li>
                     <a href="#" className="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                      <i className="uil-comment-slash mr-1" />   Disable comments
+                      <i className="uil-comment-slash mr-1" />   {language.discomment}
                               </a>
                   </li>
                   <li>
                     <a href="#" className="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md dark:hover:bg-gray-800">
-                      <i className="uil-favorite mr-1" />  Add favorites
+                      <i className="uil-favorite mr-1" />  {language.addfavorite}
                               </a>
                   </li>
                   <li>
@@ -67,7 +68,7 @@ class HeaderPost extends Component {
                      <li>
                
                      <a  onClick = {this.deletePost} className="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md dark:hover:bg-red-600">
-                       <i className="uil-trash-alt mr-1" />  Delete
+                       <i className="uil-trash-alt mr-1" />  {language.delete}
                      </a>
                    </li>
                   
