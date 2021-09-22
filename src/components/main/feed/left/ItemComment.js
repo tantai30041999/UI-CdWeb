@@ -158,10 +158,10 @@ class ItemComment extends Component {
         <div id="showComment" onMouseEnter={this.onMouseEnterDivComment} onMouseLeave={this.onMouseLeaveDivComment}>
           <DelModal open={this.state.delComment} language={language} modalCallBack={this.showDelModal} idComment={this.state.idComment} removeComment={this.props.removeComment} />
 
-          {openEditModal == true ?  
+          {/* {openEditModal == true ?  
            <EditComment open={this.state.editComment} language={language} modalCallBack={this.showEditModal} idComment={this.state.idComment} updateComment={this.props.updateComment} content ={this.state.content}/>
 
-          :""}
+          :""} */}
         
           <div className="flex"  >
             <div className="w-10 h-10 rounded-full relative flex-shrink-0">
@@ -182,8 +182,8 @@ class ItemComment extends Component {
 
           <div style={{ display: this.state.hoverDivComment }}>
             <ul style={{ width: "75%", margin: "auto" }}>
-              <li style={{ float: "left", width: '10%', fontSize: '12px' }}><b><a onClick={this.updateComment} name="edit" style={{ textDecoration: this.state.hoverEdit }} onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>{language.editComment}</a></b></li>
-              <li style={{ fontSize: '12px' }}><b><a name="delete" onClick={this.deleteComment} style={{ textDecoration: this.state.hoverDelete }} onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>{language.delComment}</a></b></li>
+              {/* <li style={{ float: "left", width: '10%', fontSize: '12px' }}><b><a onClick={this.updateComment} name="edit" style={{ textDecoration: this.state.hoverEdit }} onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>{language.editComment}</a></b></li> */}
+              <li style={{ float: "left", width: '15%', fontSize: '12px'}}><b><a name="delete" onClick={this.deleteComment} style={{ textDecoration: this.state.hoverDelete }} onMouseEnter={this.onMouseEnterUnderLine} onMouseLeave={this.onMouseLeaveUnderline}>{language.delComment}</a></b></li>
             </ul>
 
 
