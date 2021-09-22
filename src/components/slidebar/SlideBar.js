@@ -17,7 +17,6 @@ class SlideBar extends Component {
             userInfo :  JSON.parse(localStorage.getItem('userInf')),
            
           }
-          // this.clearData = this.clearData.bind(this);
       
       }
 

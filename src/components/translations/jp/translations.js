@@ -39,5 +39,9 @@ export const TRANSLATIONS_JP = {
     discomment : "コメントを無効にする",
     addfavorite :"お気に入りを追加",
     deletepost : "消去",
+    addStory : "ストーリーを追加",
+    editInf : "公開の詳細を編集する",
+    highths : "ハイス",
+    addNew :"新しく追加する",
 
 }

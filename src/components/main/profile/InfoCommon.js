@@ -7,7 +7,7 @@ class InfoCommon extends Component {
         return (
             <div className="flex lg:flex-row flex-col items-center lg:py-8 lg:space-x-8">
               <ProfileImage/> 
-              <ProfileContent/>
+              <ProfileContent language = {this.props.language}/>
             <div className="w-20" />
           </div>
         );

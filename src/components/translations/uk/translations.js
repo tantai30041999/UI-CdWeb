@@ -39,5 +39,9 @@ export const TRANSLATIONS_UK = {
     discomment : "Disable comments",
     addfavorite :"Add favorites",
     deletepost : "Delete",
+    addStory : "Add Story",
+    editInf : "Edit Public Detail",
+    highths : "Highths",
+    addNew :"Add new",
 
 }

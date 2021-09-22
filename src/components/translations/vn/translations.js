@@ -39,6 +39,10 @@ export const TRANSLATIONS_VN = {
     discomment : "Chặn bình luận",
     addfavorite :" Yêu thích",
     deletepost : "Xóa bài đăng",
+    addStory : "Thêm bản tin",
+    editInf : "Chỉnh sửa hồ sơ",
+    highths : "Nổi bật",
+    addNew :"Tạo mới",
 
 
 

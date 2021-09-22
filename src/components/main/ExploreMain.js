@@ -44,7 +44,7 @@ class ExploreMain extends Component {
                   <ItemStoryV5 />
                 </div>
                 {/* Load more*/}
-                <Load />
+                {/* <Load /> */}
               </div>
             </div>
           </div>
