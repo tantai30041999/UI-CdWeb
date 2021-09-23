@@ -9,7 +9,9 @@ const initialState = {
   password: "",
   erremail: "",
   errpassword: "",
-  login: false
+  login: false,
+  disable : false,
+
 
 }
 
@@ -19,10 +21,17 @@ class LoginForm extends Component {
     this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitForm = this.handleSubmitForm.bind(this);
-   
+
 
   }
+  componentDidMount() {
+    this.clearData();
+  }
+  
+
  getInfUser = async (email,password)=> {
+  
+ 
    const url ="https://istg-clone.herokuapp.com/api/user/current";
   
    fetch(url, {
@@ -57,6 +66,7 @@ class LoginForm extends Component {
       if(response.ok) {
             var login = true;
             this.setState({login}) 
+        
            
              localStorage.setItem('username', this.state.email);
             localStorage.setItem('password', encode);
@@ -69,23 +79,32 @@ class LoginForm extends Component {
              var errpassword ="Username or password is incorrect";
              var email ="";
              var password = "";
+             var disable = false;
              this.setState({ email })
              this.setState({password})
              this.setState({errpassword})
              this.setState({login})
+             this.setState({disable})
         }
       }
     })
     
   }
+
+async clearData() {
+    await  localStorage.clear();
+      var clear = false;
+     await this.setState({clear});
+     
+   }
   async handleChange(event) {
     await this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value 
     })
- 
 
   }
   validationForm = () => {
+ 
     var erremail = "";
     let errpassword = "";
     var countErr = 0;
@@ -107,19 +126,24 @@ class LoginForm extends Component {
 
 
 
+
     if (countErr > 0) {
       return false;
     }
     return true;
   }
+  
+
 
   handleSubmitForm(event) {
     event.preventDefault();
     const isValidForm = this.validationForm();
 
     if (isValidForm) {
+      var disable = true;
+      this.setState({disable})
       this.login();
-
+    
     }
     this.setState({ initialState });
 
@@ -129,7 +153,10 @@ class LoginForm extends Component {
   render() {
 
     var login = this.state.login;
+    var disable = this.state.disable;
+ 
     if(login == true) {
+   
      
       return <Redirect to="/feed" ></Redirect>
     }
@@ -153,7 +180,12 @@ class LoginForm extends Component {
               </div>
               <a href="/forget"> Forgot Your Password? </a>
             </div>
-            <button type="submit" className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
+            {disable == true ? 
+             <button type="submit" disabled={true} style={  {backgroundColor:  '#dadbda'}} className="bg-gradient-to-br  py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
+            :
+            
+            <button type="submit" disabled ={false} className="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>}
+         
             <div className="text-center mt-5 space-x-2">
               <p className="text-base"> Not registered? <a href="/register" className> Create a account </a></p>
             </div>
